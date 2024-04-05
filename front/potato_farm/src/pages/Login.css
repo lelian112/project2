@@ -1,0 +1,86 @@
+body {
+  background-color: #212529;
+}
+
+#loginLayout {
+  background-color: grey;
+  width: 1000px;
+  height: 1000px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+#loginContainer{
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  position: relative;
+  top: 10%;
+  left: 30%;
+}
+
+.infoContainer{
+  background-color: grey;
+  position: absolute;
+  border: 0.1px solid black;
+  width: 300px;
+  height: 100px;
+  left: 13%;
+  top: 20%;
+  border-radius: 20px;
+}
+
+.id{
+  position: relative;
+  /* margin: 10% 10%; */
+  /* left: 25%; */
+  /* top: 20%; */
+  padding: 5%;
+  box-sizing: border-box;
+}
+
+.pw{
+  position: relative;
+  /* left: 25%; */
+  padding: 5%;
+  /* left: 25%; */
+
+}
+
+.input_text{
+  /* border: 0.1px solid black; */
+  border: none;
+  background: none;
+  border-bottom: 2px solid #D1D1D4;
+  transition: .2s;
+  /* border-radius: 5px; */
+  margin-left: 10px;
+  width: 230px;
+  
+}
+
+.input_text::placeholder {
+  color: white; /* 색상을 원하는 색으로 변경하세요 */
+}
+
+#loginSubmit{
+  position: absolute;
+  top: 65%;
+  left: 13%;
+  width: 300px;
+  height: 30px;
+  border-radius: 20px;
+  
+}
+
+#signUpButton{
+  position: absolute;
+  top: 75%;
+  left: 13%;
+  width: 300px;
+  height: 30px;
+  border-radius: 20px;
+  margin-top: 3%;
+}
