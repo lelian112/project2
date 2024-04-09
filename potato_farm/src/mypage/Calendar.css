@@ -1,7 +1,8 @@
-.asd {
-  width: 500px;
-  height: 50px;
-  background-color: black;
+#calendarContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
   position: relative;
-  left: 100px;
+  left: 43%;
+  top: -28%;
 }

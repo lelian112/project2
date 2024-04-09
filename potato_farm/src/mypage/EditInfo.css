@@ -1,0 +1,65 @@
+#editContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
+  position: relative;
+  left: 43%;
+  top: -28%;
+}
+
+.editTitle{
+  background-color: grey;
+  width: 400px;
+  height: 100px;
+  position: relative;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+}
+
+.editTitle h3{
+  margin: 0;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.editTitle p{
+  padding: 20px;
+  
+}
+
+.editTable{
+  position: relative;
+  top: 13%;
+
+}
+
+#edit {
+  border-collapse: collapse;
+  width: 70%;
+  position: relative;
+  left: 15%;
+  /* top: 20%; */
+  font-size: 0.75em;
+}
+
+#edit th, #edit td{
+  border: 1px solid black;
+  padding: 8px;
+}
+
+#edit th {
+  /* padding-top: 12px; */
+  /* padding-bottom: 12px; */
+  text-align: left;
+  background-color: lightskyblue;
+  color: white;
+}
+
+#deleteAcct{
+  position: relative;
+  top: 16%;
+  left: 15%;
+}
+

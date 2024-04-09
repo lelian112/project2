@@ -1,0 +1,64 @@
+*{
+  box-sizing: border-box;
+}
+
+#settingContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
+  position: relative;
+  left: 43%;
+  top: -28%;
+}
+
+.settingTitle{
+  background-color: grey;
+  width: 400px;
+  height: 100px;
+  position: relative;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+}
+
+.settingTitle h3{
+  margin: 0;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.settingTitle p{
+  padding: 20px;
+  
+}
+
+#settingContainer .line{
+  width: 440px;
+  border: 1px solid black; 
+  position: relative;
+  top: 15%;
+}
+
+.settingContent{
+  background-color: grey;
+  width: 400px;
+  height: 200px;
+  position: relative;
+  top: 25%;
+  left: 5%;
+  text-align: center;
+}
+
+.settingContent p{
+  padding: 10px;
+  font-size: 0.75em;
+}
+
+#settingButton{
+  width: 100px;
+  height: 30px;
+  border-radius: 20px;
+  position: relative;
+  top: 5%;
+}

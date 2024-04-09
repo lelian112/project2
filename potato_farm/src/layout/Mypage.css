@@ -129,6 +129,7 @@
   align-items: center;
   /* 가운데 정렬 */
   left: 47.5%;
+  top: 10%;
 }
 
 .buttonContainer button{

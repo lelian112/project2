@@ -1,0 +1,47 @@
+#reviewContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
+  position: relative;
+  left: 43%;
+  top: -28%;
+}
+
+#reviewContainer h3{
+  margin: 0;
+  padding: 10px 10px 10px 0px; /*위 아래 오른쪽 왼쪽*/
+}
+
+#reviewContainer .line{
+  border: 1px solid grey;
+  width: 440px;
+}
+
+.review{
+  background-color: grey;
+  width: 400px;
+  height: 170px;
+  position: relative;
+  top: 3%;
+  left: 5%;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.review .movie{
+  background-color: white;
+  height: 150px;
+  width: 120px;
+  position: relative;
+  left: -1%;
+  top: 1%;
+}
+
+.review .reviewContent{
+  background-color: white;
+  width: 250px;
+  height: 150px;
+  position: relative;
+  top: 7%;
+  left: 1%;
+}

@@ -1,0 +1,47 @@
+#wishContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
+  position: relative;
+  left: 43%;
+  top: -28%;
+}
+
+.wishTitle h3{
+  margin: 0;
+  padding: 10px 10px 10px 0px; /*위 아래 오른쪽 왼쪽*/
+}
+
+.wishTitle .line{
+  border: 1px solid grey;
+  width: 440px;
+}
+
+.movieContainer{
+  background-color: grey;
+  position: relative;
+  width: 400px;
+  height: 330px;
+  top: 3%;
+  left: 5%;
+  display: flex;
+}
+
+.movie{
+  background-color: white;
+  position: relative;
+  width: 100px;
+  height: 150px;
+  left: 4.5%;
+  top: 3%;
+  margin: 10px;
+}
+
+.numbering{
+  background-color: grey;
+  position: relative;
+  width: 400px;
+  height: 30px;
+  top: 7%;
+  left: 5%;
+}

@@ -10,14 +10,29 @@ const Mypage = () => {
           <div id='background'>
 
             <div className='buttonContainer'>
-              <button id='home'>home</button>
+              <Link to=''>
+                <button id='home'>home</button>
+              </Link>
+
               <Link to='calendar'>
                 <button id='calendar'>Calendar</button>
               </Link>
-              <button id='home'>Wanted</button>
-              <button id='home'>Reviewd</button>
-              <button id='home'>Wrotereview</button>
-              <button id='home'>Setting</button>
+
+              <Link to='wish'>
+                <button id='wish'>Wish</button>
+              </Link>
+
+              <Link to='rating'>
+                <button id='rating'>Rating</button>
+              </Link>
+
+              <Link to='review'>
+                <button id='review'>Review</button>
+              </Link>
+              
+              <Link to='setting'>
+                <button id='setting'>Setting</button>
+              </Link>
             </div>
 
 
@@ -64,7 +79,9 @@ const Mypage = () => {
 
             {/*게시판(가운데) */}
             <div id='board'>
+              <div id='boardContainer'>
 
+              </div>
 
             </div>
 
@@ -83,7 +100,7 @@ const Mypage = () => {
 
         </div>
         <Outlet />
-      </div>
+      </div >
 
     </>
   );

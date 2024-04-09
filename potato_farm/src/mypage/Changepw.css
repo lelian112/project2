@@ -1,0 +1,79 @@
+#changepwContainer{
+  background-color: wheat;
+  width: 440px;
+  height: 450px;
+  position: relative;
+  left: 43%;
+  top: -28%;
+}
+
+.changepwTitle{
+  background-color: grey;
+  width: 400px;
+  height: 100px;
+  position: relative;
+  top: 5%;
+  left: 5%;
+  text-align: center;
+}
+
+.changepwTitle h3{
+  margin: 0;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.changepwTitle p{
+  padding: 20px;
+  
+}
+
+.changepwContent{
+  background-color: grey;
+  width: 400px;
+  height: 200px;
+  position: relative;
+  top: 15%;
+  left: 5%;
+}
+
+.changepwContent h4{
+  margin: 0;
+}
+
+/*table*/
+#changepw {
+  border-collapse: collapse;
+  width: 70%;
+  position: relative;
+  /* left: 15%; */
+  /* top: 20%; */
+  margin-top: 10px;
+  font-size: 0.75em;
+}
+
+#changepw th, #changepw td{
+  border: 1px solid black;
+  padding: 8px;
+}
+
+#changepw th {
+  /* padding-top: 12px; */
+  /* padding-bottom: 12px; */
+  text-align: left;
+  background-color: lightskyblue;
+  color: white;
+}
+
+.pwInput{
+  border-radius: 5px;
+}
+
+.pwInput:focus{
+  border: none;
+}
+
+.changepwContent button{
+  margin: 10px;
+}
