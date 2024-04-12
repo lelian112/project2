@@ -29,7 +29,7 @@ const Mypage = () => {
               <Link to='review'>
                 <button id='review'>Review</button>
               </Link>
-              
+
               <Link to='setting'>
                 <button id='setting'>Setting</button>
               </Link>
@@ -80,7 +80,9 @@ const Mypage = () => {
             {/*게시판(가운데) */}
             <div id='board'>
               <div id='boardContainer'>
-
+                <Link to='logout'>
+                  <button id='logout'>logout</button>
+                </Link>
               </div>
 
             </div>

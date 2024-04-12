@@ -3,7 +3,7 @@ body {
 }
 
 #loginLayout {
-  background-color: grey;
+  background-color: transparent;
   width: 1000px;
   height: 1000px;
   margin: auto;
@@ -17,7 +17,7 @@ body {
   border-radius: 20px;
   box-sizing: border-box;
   position: relative;
-  top: 10%;
+  top: 20%;
   left: 30%;
 }
 

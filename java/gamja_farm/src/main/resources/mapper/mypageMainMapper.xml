@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamja_farm.mapper.MypageMainMapper">
+
+    <update id="visit_total" parameterType="java.lang.String">
+        UPDATE user_visit
+        SET visit_total = visit_total + 1
+        WHERE user_id=#{id}
+    </update>
+
+    <select id="user_pic" parameterType="String" resultType="String">
+        SELECT pic FROM user
+        WHERE id=#{id}
+    </select>
+
+    <select id="user_mbti" parameterType="String" resultType="String">
+        SELECT user_mbti.mbti
+        FROM user
+        JOIN user_mbti ON user.mbti = user_mbti.idx
+        WHERE id=#{id};
+    </select>
+
+    <select id="user_caption" parameterType="String" resultType="String">
+        SELECT caption FROM user
+        WHERE id=#{id}
+    </select>
+
+    <select id="user_following" parameterType="String" resultType="String">
+        SELECT user_follow FROM user_follow
+        WHERE user_id=#{id}
+    </select>
+
+    <select id="user_follower" parameterType="String" resultType="String">
+        SELECT user_id FROM user_follow
+        WHERE user_follow=#{id}
+    </select>
+
+</mapper>

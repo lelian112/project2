@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.gamja_farm'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// spring security, spring web services, spring boot devtools, mysql driver, mybatis, lombok
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	// testImplementation 'org.springframework.security:spring-security-test'
+
+	// 추가
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.2.3'  // 인증
+	implementation 'com.auth0:java-jwt:4.0.0'  // 검증
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'  // 스웨거
+
+	// implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    // runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    // runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+     // redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.2.3'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

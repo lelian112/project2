@@ -1,0 +1,29 @@
+날짜 select방식으로 할때:
+
+const currentYear = new Date().getFullYear();
+
+  const days = Array.from({ length: 31 }, (_, index) => index + 1);
+  const months = Array.from({ length: 12 }, (_, index) => index + 1);
+  const years = Array.from({ length: currentYear - 1999 }, (_, index) => currentYear - index);
+
+<select id='month'>
+                  <option style={{ display: 'none' }} selected value='0'>Month</option>
+                  {/* 배열을 매핑하여 옵션 생성 */}
+                  {months.map(month => (
+                    <option key={month} value={month}>{month}</option>
+                  ))}
+                </select>
+                <select id='day'>
+                  <option style={{ display: 'none' }} selected value='0'>Day</option>
+                  {/* 배열을 매핑하여 옵션 생성 */}
+                  {days.map(day => (
+                    <option key={day} value={day}>{day}</option>
+                  ))}
+                </select>
+                <select id='year'>
+                  <option style={{ display: 'none' }} selected value='0'>Year</option>
+                  {/* 배열을 매핑하여 옵션 생성 */}
+                  {years.map(year => (
+                    <option key={year} value={year}>{year}</option>
+                  ))}
+                </select>

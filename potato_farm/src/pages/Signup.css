@@ -6,7 +6,7 @@
 }
 
 #signupLayout{
-  background-color: grey;
+  background-color: transparent;
   width: 1000px;
   height: 1000px;
   margin: auto;
@@ -16,7 +16,7 @@
 #signupContainer{
   background-color: wheat;
   width: 500px;
-  height: 800px;
+  height: 750px;
   border-radius: 20px;
   box-sizing: border-box;
   position: relative;
@@ -55,11 +55,12 @@
   box-sizing: border-box;
   position: absolute;
   left: 10%;
-  top: 45%;
+  top: 40%;
 }
 
 .newNickname,
 .newProPic,
+.newBirth,
 .gender,
 .countryCode,
 .phoneNo{
@@ -116,13 +117,18 @@
 	border-bottom-color: #6A679E;
 }
 
+.formContainer{
+  position: relative;
+  top: 10%;
+}
+
 #signupSubmit{
   position: relative;
   width: 400px;
   height: 30px;
   border-radius: 20px;
   left: 10%;
-  top: 92%;
+  top: 90%;
 }
 
 #month{

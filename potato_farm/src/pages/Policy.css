@@ -1,5 +1,5 @@
 #policyLayout{
-  background-color: grey;
+  background-color: transparent;
   width: 1000px;
   height: 1000px;
   margin: auto;
@@ -41,7 +41,7 @@
   margin-top: 10%;
 }
 
-.option_point {
+.option_point, .must_point {
   display: inline-block;
   margin-right: 5px; /* 이용약관 텍스트와의 간격 조정 */
   font-size: 0.7em;
