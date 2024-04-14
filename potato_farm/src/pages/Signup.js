@@ -24,9 +24,9 @@ const Signup = () => {
     })
   }
 
-  const [genders, setGenders] = useState({
-    gender: 0,
-  });
+  const [genders, setGenders] = useState(
+    {gender: 0}
+  );
 
   const handleGenderChange = (e) => {
     setGenders(parseInt(e.target.value));
@@ -91,10 +91,10 @@ const Signup = () => {
               </div> */}
 
               {/*이메일*/}
-              {/* <div className='newEmail'>
+              <div className='newEmail'>
                 <i class="login_icon fas fa-envelope  "></i>
                 <input type='text' className='input_text' placeholder='Email' name='email' onChange={handleValueChange} />
-              </div> */}
+              </div>
             </div>
 
             {/*인적사항 프론트에선 nickname, 백에선 name*/}
@@ -106,45 +106,45 @@ const Signup = () => {
               </div>
 
               {/*프로필 사진*/}
-              {/* <div className='newProPic'>
+              <div className='newProPic'>
                 <i class="login_icon fas fa-image fa-fw"></i>
                 <input type='file' className='input_text' name='pic' onChange={handleFileChange} />
-              </div> */}
+              </div>
 
               {/*생년월일*/}
-              {/* <div className='newBirth'>
+              <div className='newBirth'>
                 <i class="login_icon fas fa-calendar fa-fw"></i>
                 <input type='date' className='input_text' name='birth' onChange={handleValueChange} />
 
-              </div> */}
+              </div>
 
-              {/*성별*/}
-              {/* <div className='gender'>
+              {/*성별 - 1 안들어감*/}
+              <div className='gender'>
                 <i class="login_icon fas fa-venus-mars fa-fw"></i>
 
-                <input type='radio' id='maleRadio' name='gender' value={0} checked={genders === 0} onChange={handleGenderChange}></input>
+                <input type='radio' id='maleRadio' name='gender' value={genders.gender} checked={genders === 0} onChange={handleGenderChange}></input>
                 <label for='maleRadio'>
                   <div className='genderText'>Male</div>
                 </label>
 
-                <input type='radio' id='femaleRadio' name='gender' value={1} checked={genders === 1} onChange={handleGenderChange}></input>
+                <input type='radio' id='femaleRadio' name='gender' value={genders.gender} checked={genders === 1} onChange={handleGenderChange}></input>
                 <label for='femaleRadio'>
                   <div className='genderText'>Female</div>
                 </label>
 
-              </div> */}
+              </div>
 
               {/*국가번호*/}
-              {/* <div className='countryCode'>
+              <div className='countryCode'>
                 <i class="login_icon fas fa-globe fa-fw"></i>
                 <input type='text' className='input_text' placeholder='Country Code' name='country_code' onChange={handleValueChange} />
-              </div> */}
+              </div>
 
               {/*전화번호*/}
-              {/* <div className='phoneNo'>
+              <div className='phoneNo'>
                 <i class="login_icon fas fa-mobile-screen fa-fw"></i>
                 <input type='text' className='input_text' placeholder='Phone Number' maxLength='11' name='phone'  onChange={handleValueChange} />
-              </div> */}
+              </div>
 
             </div>
 

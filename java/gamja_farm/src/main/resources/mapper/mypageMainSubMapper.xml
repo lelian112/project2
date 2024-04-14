@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.gamja_farm.mapper.MypageMainSubMapper">
+<mapper namespace="com.gamja_farm.mapper.MypageSubMapper">
 
     <select id="user_review" parameterType="String" resultType="String">
         SELECT movie_code, review FROM user_review
@@ -15,20 +15,20 @@
         WHERE user_id=#{id}
     </select>
 
-    <select id="python_KoNLPy" parameterType="String" resultType="String">
+    <select id="python_konlpy" parameterType="String" resultType="String">
         SELECT python_konlpy FROM user
         WHERE id=#{id}
     </select>
 
     <select id="watching_time" parameterType="String" resultType="String">
-        SELECT id, SUM(running_time) AS watching_time from
+        SELECT SUM(running_time) AS watching_time from
         (
             SELECT DISTINCT user.id, movie.code, movie.running_time
             FROM user
             JOIN user_review ON user.id = user_review.user_id
             JOIN user_movie_rate ON user.id = user_movie_rate.user_id
             JOIN movie ON user_review.movie_code = movie.code OR user_movie_rate.movie_code = movie.code
-            WHERE user.id = "example_id2"
+            WHERE user.id = #{id}
         ) as watching_movie
         GROUP BY id;
     </select>

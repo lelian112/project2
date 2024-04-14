@@ -17,35 +17,41 @@ public class MypageMainServiceImp implements MypageMainService {
 
     }
 
-    @Override
+	@Override
+	public int visitDailyProcess(String id) {
+		mypageMainMapper.updateMypageVisitDaily(id);
+        return mypageMainMapper.selectMypageVisitDaily(id);
+	}
+	
+	@Override
     public int visitTotalProcess(String id) {
-        return mypageMainMapper.visit_total(id);
+		mypageMainMapper.updateMypageVisitTotal(id);
+        return mypageMainMapper.selectMypageVisitTotal(id);
     }
 
     @Override
     public String userPicProcess(String id) {
-		return mypageMainMapper.user_pic(id);
+		return mypageMainMapper.selectUserPic(id);
     }
 
     @Override
     public String userMbtiProcess(String id) {
-		return mypageMainMapper.user_mbti(id);
+		return mypageMainMapper.selectUserMbti(id);
     }
 
     @Override
     public String userCaptionProcess(String id) {
-		mypageMainMapper.visit_total(id);
-		return mypageMainMapper.user_caption(id);
+		return mypageMainMapper.selectUserCaption(id);
     }
 
     @Override
     public List<String> followingListProcess(String id) {
-		return mypageMainMapper.user_following(id);
+		return mypageMainMapper.selectUserFollowing(id);
     }
 
     @Override
     public List<String> followerListProcess(String id) {
-		return mypageMainMapper.user_follower(id);
+		return mypageMainMapper.selectUserFollower(id);
     }
 
 }

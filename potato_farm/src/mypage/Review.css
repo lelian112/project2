@@ -17,31 +17,48 @@
   width: 440px;
 }
 
-.review{
-  background-color: grey;
-  width: 400px;
-  height: 170px;
-  position: relative;
-  top: 3%;
-  left: 5%;
+.eachContainer{
   display: flex;
-  margin-bottom: 15px;
+  background-color: grey;
+  width: 100px;
+  height: 100px;
 }
 
-.review .movie{
+.review{
+  display: grid;
+  grid-template-columns: repeat(2, 100px);
+  /* grid-template-rows: auto; */
+  gap: 30px;
+  justify-content: center;
+  width: 400px;
+  height: 330px;
+  overflow: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  position: relative;
+  left: 5%;
+  top: 3%;
+}
+
+/* .review .movie{
+  
+  justify-content: left;
+  align-items: center;
   background-color: white;
   height: 150px;
   width: 120px;
   position: relative;
   left: -1%;
   top: 1%;
-}
+} */
 
-.review .reviewContent{
+/* .review .reviewContent{
+  display: flex;
   background-color: white;
   width: 250px;
   height: 150px;
   position: relative;
   top: 7%;
   left: 1%;
-}
+} */

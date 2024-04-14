@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamja_farm.service.MypageMainService;
@@ -28,27 +29,34 @@ public class MypageMainController {
         
     }
 
-    @GetMapping("/mypage/{id}")
+    @PostMapping("/mypage/{id}")
     public ResponseEntity<List<Object>> allExecute(@PathVariable("id") String id) {
         
-        List<Object> mypageData = new ArrayList<>();
+        List<Object> mypageMainData = new ArrayList<>();
 
-        String userPics = mypageMainService.userPicProcess(id);
-        mypageData.add(userPics != null ? userPics : "");
+        int visitDaily = mypageMainService.visitDailyProcess(id);
+        mypageMainData.add(visitDaily != 0 ? visitDaily : "");
+
+        int visitTotal = mypageMainService.visitTotalProcess(id);
+        mypageMainData.add(visitTotal != 0 ? visitTotal : "");
+
+        String userPic = mypageMainService.userPicProcess(id);
+        mypageMainData.add(userPic != null ? userPic : "");
 
         String userMbtis = mypageMainService.userMbtiProcess(id);
-        mypageData.add(userMbtis != null ? userMbtis : "");
+        mypageMainData.add(userMbtis != null ? userMbtis : "");
 
-        String userCaptions = mypageMainService.userCaptionProcess(id);
-        mypageData.add(userCaptions != null ? userCaptions : "");
+        String userCaption = mypageMainService.userCaptionProcess(id);
+        mypageMainData.add(userCaption != null ? userCaption : "");
 
         List<String> userfollowings = mypageMainService.followingListProcess(id);
-        mypageData.add(userfollowings != null ? userfollowings : new ArrayList<String>());
+        mypageMainData.add(userfollowings != null ? userfollowings : new ArrayList<String>());
 
         List<String> userfollowers = mypageMainService.followerListProcess(id);
-        mypageData.add(userfollowers != null ? userfollowers : new ArrayList<String>());
+        mypageMainData.add(userfollowers != null ? userfollowers : new ArrayList<String>());
 
-        return ResponseEntity.ok(mypageData);
+        return ResponseEntity.ok(mypageMainData);
+        
     }
 
     // @GetMapping("/userpage/{id}")

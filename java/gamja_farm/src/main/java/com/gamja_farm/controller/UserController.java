@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamja_farm.authInfo.AuthInfo;
-import com.gamja_farm.dto.UsersDTO;
-import com.gamja_farm.service.UsersService;
+import com.gamja_farm.dto.UserDTO;
+import com.gamja_farm.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,44 +24,48 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @CrossOrigin("*")
 @RestController
-public class UsersController {
+public class UserController {
 	
 	@Autowired
-	private UsersService usersService;
+	private UserService userService;
 	
 	@Autowired
 	private BCryptPasswordEncoder encodePassword;
 	
-	public UsersController() {
+	public UserController() {
 		
 	}
 	
 	// 회원가입 처리
 	@Operation(summary="회원가입하기", description="회원가입 API")
-	@PostMapping("signup")  // http://localhost:8090/user/signup
-	public ResponseEntity<AuthInfo> adduser(@RequestBody UsersDTO usersDTO) {
-		log.info("usersDTO:{}:", usersDTO);
-		usersDTO.setPw(encodePassword.encode(usersDTO.getPw()));
-		
-		AuthInfo authInfo = usersService.addUserProcess(usersDTO);  
+	@PostMapping("/signup")  // http://localhost:8090/user/signup
+	public ResponseEntity<AuthInfo> adduser(@RequestBody UserDTO userDTO) {
+
+		log.info("userDTO:{}:", userDTO);
+		userDTO.setPw(encodePassword.encode(userDTO.getPw()));
+		AuthInfo authInfo = userService.addUserProcess(userDTO);
+
+		userService.loginProcess2(userDTO);
+
 		return ResponseEntity.ok(authInfo);
+
 	}  // end adduser()
 	
 	
 	// 회원정보 가져오기
 	@Operation(summary="회원정보 보기", description="회원정보 보기 API")
 	@GetMapping("/user/editinfo/{id}")  // http://localhost:8090/user/editinfo/{id}
-	public ResponseEntity<UsersDTO> getUser(@PathVariable("id") String id) {
-		return ResponseEntity.ok(usersService.updateUserProcess(id));
+	public ResponseEntity<UserDTO> getUser(@PathVariable("id") String id) {
+		return ResponseEntity.ok(userService.updateUserProcess(id));
 	}  // end getUser()
 	
 	
 	// 회원정보 수정
 	@Operation(summary="회원정보 수정", description="회원정보 수정 API")
 	@PutMapping("/user/update")  // http://localhost:8090/user/update
-	public ResponseEntity<AuthInfo> updateUser(@RequestBody UsersDTO usersDTO) {
-		usersDTO.setPw(encodePassword.encode(usersDTO.getPw()));
-		return ResponseEntity.ok(usersService.updateUserProcess(usersDTO));
+	public ResponseEntity<AuthInfo> updateUser(@RequestBody UserDTO userDTO) {
+		userDTO.setPw(encodePassword.encode(userDTO.getPw()));
+		return ResponseEntity.ok(userService.updateUserProcess(userDTO));
 	}  // end updateUser()
 	
 	
@@ -69,7 +73,7 @@ public class UsersController {
 	@Operation(summary="회원탈퇴", description="회원탈퇴 API")
 	@DeleteMapping("/user/delete/{id}")  // http://localhost:8090/user/delete/{id}
 	public ResponseEntity<Object> deleteUser(@PathVariable("id") String id) {
-		usersService.deleteUserProcess(id);
+		userService.deleteUserProcess(id);
 		return ResponseEntity.ok(null);
 	}
 	

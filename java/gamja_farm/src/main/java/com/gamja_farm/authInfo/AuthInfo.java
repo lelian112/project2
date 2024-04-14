@@ -10,21 +10,19 @@ public class AuthInfo {
 	public AuthInfo() {
 		// TODO Auto-generated constructor stub
 	}
-
 	
 	public AuthInfo(String id,  String pw) {
 		super();
 		this.id = id;
 		this.pw = pw;
 	}
-	  
+	
 	public AuthInfo(String id, String pw, String name) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 	}
-
 
 	public String getId() {
 		return id;

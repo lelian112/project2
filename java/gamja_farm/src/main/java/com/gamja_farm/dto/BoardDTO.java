@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gamja_farm.dto.UsersDTO;
+import com.gamja_farm.dto.UserDTO;
 
 
 @Component
@@ -13,7 +13,7 @@ public class BoardDTO {
 	private int num, readcount, ref, re_step, re_level;
 	private String  subject, content, ip, id;
 	private Date reg_date;
-	private UsersDTO usersDTO;
+	private UserDTO userDTO;
 
 	//board테이블의 파일 첨부를 처리해주는 멤버변수
 	private String upload;
@@ -25,12 +25,12 @@ public class BoardDTO {
 
 	}
    
-	 public UsersDTO getUsersDTO() {
-		return usersDTO;
+	 public UserDTO getUserDTO() {
+		return userDTO;
 	}
 	 
-	 public void setUsersDTO(UsersDTO usersDTO) {
-		this.usersDTO = usersDTO;
+	 public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
 	
 	

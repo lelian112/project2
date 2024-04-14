@@ -12,12 +12,17 @@ const Review = () => {
 
         {/*스크롤 */}
         <div className='review'>
-          <div className='movie'></div>
-          <div className='reviewContent'></div>
+
+          <div className='eachContainer'>
+            <div className='movie'></div>
+            <div className='reviewContent'></div>
+          </div>
+
+
         </div>
 
-        <div className='review'></div>
         
+
 
       </div>
     </>

@@ -20,12 +20,7 @@ const Wish = () => {
         <div className='movie'></div>
         <div className='movie'></div>
         <div className='movie'></div>
-        <div className='movie'></div>
-        <div className='movie'></div>
-        <div className='movie'></div>
-        <div className='movie'></div>
-        <div className='movie'></div>
-        <div className='movie'></div>
+        
         
       </div>
 

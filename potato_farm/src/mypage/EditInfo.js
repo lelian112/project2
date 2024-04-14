@@ -8,12 +8,12 @@ const EditInfo = () => {
   return (
     <>
       <div id='editContainer'>
-        <div className='editTitle'>
+        {/* <div className='editTitle'>
           <h3>회원 정보 수정</h3>
           <p>
             회원님의 소중한 정보를 정보를 안전하게 관리하세요.
           </p>
-        </div>
+        </div> */}
 
         <div className='editTable'>
           <table id='edit'>
@@ -56,6 +56,19 @@ const EditInfo = () => {
               <td>dasdasdasasdasdasdasda</td>
 
             </tr>
+
+            <tr>
+              <td>한줄 소개</td>
+              <td>dasdasdasasda</td>
+
+            </tr>
+
+            <tr>
+              <td>프로필 사진</td>
+              <td>dasdasdasasda</td>
+
+            </tr>
+
           </table>
         </div>
 

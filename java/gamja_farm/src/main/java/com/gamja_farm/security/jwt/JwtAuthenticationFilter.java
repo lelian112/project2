@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.gamja_farm.dto.UsersDTO;
+import com.gamja_farm.dto.UserDTO;
 import com.gamja_farm.security.service.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -55,10 +55,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			// {"id":"anibia@lol.com", "pw":"1234"}
 			// 스트림을 통해서 읽어온 json을 UserDTO 객체로 변경해준다.
 			ObjectMapper om = new ObjectMapper();
-			UsersDTO usersDTO = om.readValue(request.getInputStream(), UsersDTO.class);
-			log.info("id:{}, pw:{}", usersDTO.getId(), usersDTO.getPw());
+			UserDTO userDTO = om.readValue(request.getInputStream(), UserDTO.class);
+			log.info("id:{}, pw:{}", userDTO.getId(), userDTO.getPw());
 			
-			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(usersDTO.getId(), usersDTO.getPw());
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDTO.getId(), userDTO.getPw());
 			authentication = authManager.authenticate(authenticationToken);
 			log.info("authentication:{}", authentication.getDetails());
 			log.info("authentication:{}", authentication.getPrincipal());
@@ -99,8 +99,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.addHeader("Authorization", "Bearer " + jwtToken);  // Bearer뒤에 꼭 1칸을 띄어야 한다. 안그러면 보기 힘듦
 		
 		final Map<String, Object> body = new HashMap<>();
-		body.put("name", principalDetails.getUsersDTO().getName());
-		body.put("id", principalDetails.getUsersDTO().getId());
+		body.put("name", principalDetails.getUserDTO().getName());
+		body.put("id", principalDetails.getUserDTO().getId());
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getOutputStream(), body);

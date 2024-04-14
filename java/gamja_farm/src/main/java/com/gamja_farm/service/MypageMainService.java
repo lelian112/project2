@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface MypageMainService {
 
+    public int visitDailyProcess(String id);
     public int visitTotalProcess(String id);
 
 	public String userPicProcess(String id);

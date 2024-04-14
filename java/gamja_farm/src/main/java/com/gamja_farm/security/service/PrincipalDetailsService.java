@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.gamja_farm.dto.UsersDTO;
-import com.gamja_farm.mapper.UsersMapper;
+import com.gamja_farm.dto.UserDTO;
+import com.gamja_farm.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PrincipalDetailsService implements UserDetailsService {
 	
 	@Autowired
-	private UsersMapper usersMapper; 
+	private UserMapper userMapper; 
 	
 	// 1. AuthenticationProvider에서 loadUserByUsername(String id)을 호출한다.
 	// 2. loadUserByUsername(String id)에서는 DB에서 id에 해당하는 데이터를 검색해서 UserDetails에 담아서 리턴해준다.
@@ -27,15 +27,15 @@ public class PrincipalDetailsService implements UserDetailsService {
 		
 		log.info("PrincipalService id:{}", id);
 		
-		UsersDTO usersDTO = usersMapper.selectById(id);
+		UserDTO userDTO = userMapper.selectUser(id);
 		log.info("id:{} pw:{} name:{}",
-				usersDTO.getId(), usersDTO.getPw(), usersDTO.getName());
+				userDTO.getId(), userDTO.getPw(), userDTO.getName());
 		
-		if (usersDTO == null) {
+		if (userDTO == null) {
 			throw new UsernameNotFoundException(id);
 		}
 		
-		return new PrincipalDetails(usersDTO);
+		return new PrincipalDetails(userDTO);
 		
 	}
 

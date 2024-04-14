@@ -5,35 +5,53 @@
 
 <mapper namespace="com.gamja_farm.mapper.MypageMainMapper">
 
-    <update id="visit_total" parameterType="java.lang.String">
+    <select id="selectMypageVisitDaily" parameterType="String">
+        SELECT visit_cnt
+        FROM user_visit
+        WHERE user_id=#{id}
+    </select>
+
+    <update id="updateMypageVisitDaily" parameterType="String">
+        UPDATE user_visit
+        SET visit_cnt = visit_cnt + 1
+        WHERE user_id=#{id}
+    </update>
+
+    <select id="selectMypageVisitTotal" parameterType="String">
+        SELECT visit_total
+        FROM user_visit
+        WHERE user_id=#{id}
+	</select>
+
+    <update id="updateMypageVisitTotal" parameterType="String">
         UPDATE user_visit
         SET visit_total = visit_total + 1
         WHERE user_id=#{id}
     </update>
 
-    <select id="user_pic" parameterType="String" resultType="String">
+    <select id="selectUserPic" parameterType="String" resultType="String">
         SELECT pic FROM user
         WHERE id=#{id}
     </select>
 
-    <select id="user_mbti" parameterType="String" resultType="String">
+    <select id="selectUserMbti" parameterType="String" resultType="String">
         SELECT user_mbti.mbti
         FROM user
         JOIN user_mbti ON user.mbti = user_mbti.idx
         WHERE id=#{id};
     </select>
 
-    <select id="user_caption" parameterType="String" resultType="String">
+    <select id="selectUserCaption" parameterType="String" resultType="String">
         SELECT caption FROM user
         WHERE id=#{id}
     </select>
 
-    <select id="user_following" parameterType="String" resultType="String">
+    <select id="selectUserFollowing" parameterType="String" resultType="String">
         SELECT user_follow FROM user_follow
         WHERE user_id=#{id}
     </select>
 
-    <select id="user_follower" parameterType="String" resultType="String">
+    <select id="selectUserFollower" parameterType="String" resultType="String">
         SELECT user_id FROM user_follow
         WHERE user_follow=#{id}
     </select>

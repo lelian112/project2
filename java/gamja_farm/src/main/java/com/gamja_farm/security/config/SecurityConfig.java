@@ -11,7 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.gamja_farm.mapper.UsersMapper;
+import com.gamja_farm.mapper.UserMapper;
 import com.gamja_farm.security.jwt.JwtAuthenticationFilter;
 import com.gamja_farm.security.jwt.JwtAuthorizationFilter;
 
@@ -24,12 +24,12 @@ import com.gamja_farm.security.jwt.JwtAuthorizationFilter;
 public class SecurityConfig {
 
 	@Autowired
-	private UsersMapper usersMapper;
+	private UserMapper userMapper;
 	
 	@Bean
-	public BCryptPasswordEncoder encodePwd() {
+	public BCryptPasswordEncoder encodePw() {
 		return new BCryptPasswordEncoder();
-	}  // end encodePwd()
+	}  // end encodePw()
 	
 	
 	@Bean
@@ -50,8 +50,7 @@ public class SecurityConfig {
 		// 요청에 의한 인가(권한)검사 시작
 		// http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
 		http.authorizeHttpRequests(authorize -> authorize
-									.requestMatchers("/", "/images/**", "/signup", "/userpage/**", "/mypage/**").permitAll()  // 이거는 로그인 없이 접근가능
-									// .requestMatchers("/", "/images/**", "/user/signup", "/board/list/**", "/user/delete/**").permitAll()
+									.requestMatchers("/", "/images/**", "/signup", "/mypage/**", "/review/**").permitAll()  // 이거는 로그인 없이 접근가능
 									.anyRequest().authenticated());  // 그외 모든 요청은 인증(로그인)이 필수이다.
 		return http.build();
 		
@@ -71,7 +70,7 @@ public class SecurityConfig {
 			http.addFilter(new JwtAuthenticationFilter(authenticationManager));
 			
 			// 인가 필터 등록
-			http.addFilter(new JwtAuthorizationFilter(authenticationManager, usersMapper));
+			http.addFilter(new JwtAuthorizationFilter(authenticationManager, userMapper));
 			
 		}
 		

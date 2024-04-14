@@ -6,25 +6,25 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.gamja_farm.dto.UsersDTO;
+import com.gamja_farm.dto.UserDTO;
 
 
-public class PrincipalDetails  implements UserDetails{	
+public class PrincipalDetails implements UserDetails{	
 	
 	private static final long serialVersionUID = 1L;
-	private UsersDTO usersDTO;
+	private UserDTO userDTO;
 	
     public PrincipalDetails() {
 	  
     }
 	
-    public PrincipalDetails(UsersDTO usersDTO) {
-    	this.usersDTO = usersDTO;  	  
+    public PrincipalDetails(UserDTO userDTO) {
+    	this.userDTO = userDTO;  	  
     }
 
     
-    public UsersDTO getUsersDTO() {
-    	return usersDTO;
+    public UserDTO getUserDTO() {
+    	return userDTO;
     }
     
     
@@ -36,7 +36,7 @@ public class PrincipalDetails  implements UserDetails{
 		collect.add(new  GrantedAuthority() {
 			@Override
 			public String getAuthority() {
-				return usersDTO.getAuthRole();
+				return userDTO.getAuthRole();
 			}			
 		});		
 		
@@ -46,13 +46,13 @@ public class PrincipalDetails  implements UserDetails{
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return usersDTO.getPw();
+		return userDTO.getPw();
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return usersDTO.getId();
+		return userDTO.getId();
 	}
 
 	//계정만료여부 리턴 -  true(만료안됨)

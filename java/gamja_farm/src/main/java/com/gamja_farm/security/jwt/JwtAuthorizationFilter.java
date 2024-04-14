@@ -11,8 +11,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.gamja_farm.dto.UsersDTO;
-import com.gamja_farm.mapper.UsersMapper;
+import com.gamja_farm.dto.UserDTO;
+import com.gamja_farm.mapper.UserMapper;
 import com.gamja_farm.security.service.PrincipalDetails;
 
 import jakarta.servlet.FilterChain;
@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	
-	private UsersMapper usersMapper;
+	private UserMapper userMapper;
 	
-	public JwtAuthorizationFilter(AuthenticationManager authManager, UsersMapper usersMapper) {
+	public JwtAuthorizationFilter(AuthenticationManager authManager, UserMapper userMapper) {
 		super(authManager);
-		this.usersMapper = usersMapper;
+		this.userMapper = userMapper;
 	}
 	
 	// dofilter 자동완성
@@ -59,8 +59,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		if (username != null) {
 			// spring security가 수행해주는 권한처리를 위해 아래와 같이 토큰을 만들어
 			// Authentication 객체를 강제로 만들고 세션에 넣어준다.
-			UsersDTO usersDTO = usersMapper.selectById(username);
-			PrincipalDetails principalDetails = new PrincipalDetails(usersDTO);
+			UserDTO userDTO = userMapper.selectUser(username);
+			PrincipalDetails principalDetails = new PrincipalDetails(userDTO);
 			
 			Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
 			

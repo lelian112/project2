@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MypageMainDTO extends UsersDTO {
+public class MypageMainDTO extends UserDTO {
 
     // 사용자 id
     // private String id;
