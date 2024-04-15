@@ -18,6 +18,21 @@ const Review = () => {
             <div className='reviewContent'></div>
           </div>
 
+          <div className='eachContainer'>
+            <div className='movie'></div>
+            <div className='reviewContent'></div>
+          </div>
+
+          <div className='eachContainer'>
+            <div className='movie'></div>
+            <div className='reviewContent'></div>
+          </div>
+
+          <div className='eachContainer'>
+            <div className='movie'></div>
+            <div className='reviewContent'></div>
+          </div>
+
 
         </div>
 

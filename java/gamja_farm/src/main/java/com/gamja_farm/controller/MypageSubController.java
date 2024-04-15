@@ -38,8 +38,8 @@ public class MypageSubController {
         List<String> movieRatings = mypageSubService.movieRatingProcess(id);
         mypageSubData.add(movieRatings != null ? movieRatings : new ArrayList<String>());
 
-        String moviePython = mypageSubService.moviePythonProcess(id);
-        mypageSubData.add(moviePython != null ? moviePython : "");
+        // String moviePython = mypageSubService.moviePythonProcess(id);
+        // mypageSubData.add(moviePython != null ? moviePython : "");
 
         String movieWatchingTime = mypageSubService.movieWatchingTimeProcess(id);
         mypageSubData.add(movieWatchingTime != null ? movieWatchingTime : "");

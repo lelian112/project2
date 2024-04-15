@@ -97,7 +97,7 @@
 
 .aboutMyself {
   height: 130px;
-  top: 7%;
+  top: 15%;
 
 }
 
@@ -105,18 +105,18 @@
   width: 225px;
   position: relative;
   border: 0.1px dotted black;
-  top: 10%;
+  top: 12%;
 }
 
 .visitors {
   height: 20px;
-  top: 12%;
-
+  top: 5%;
+  /* left: -26%; */
 }
 
 .follow {
   height: 100px;
-  top: 15%;
+  top: 8%;
 
 }
 

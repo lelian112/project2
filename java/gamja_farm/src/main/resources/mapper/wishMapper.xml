@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamja_farm.mapper.WishMapper">
+
+<!-- 찜 목록에 추가 -->
+<insert id="hitWish" parameterType="WishDTO">
+  INSERT INTO user_movie_wish (user_id,movie_code,wish)
+  VALUES(#{user_id}, #{movie_code}, "Y")
+</insert>
+
+<!-- ID로 찜 목록에 있는거 찾기--> 
+<select id="getWishListById" parameterType="String" resultType="WishDTO">
+  SELECT * FROM user_movie_wish
+  WHERE user_id = #{user_id}
+</select>
+
+<!-- 찜 목록 중 한개 삭제 -->
+<delete id="deleteWishAndGetList" parameterType="map">
+  DELETE FROM user_movie_wish
+  WHERE idx=#{idx} and user_id=#{user_id}
+</delete>
+
+<!-- 찜 목록 한개 삭제 후 나머지 조회 -->
+<!-- <select id="deleteWishAndGetList" parameterType="map" resultType="WishDTO">
+    DELETE FROM user_movie_wish 
+    WHERE idx = #{idx} AND user_id = #{user_id};
+    SELECT * FROM user_movie_wish WHERE user_id = #{user_id};
+</select> -->
+
+
+<!-- 찜 목록 전체 삭제 -->
+<delete id="deleteAllbyUserId" parameterType="String">
+  DELETE FROM user_movie_wish
+  WHERE user_id=#{user_id}
+</delete>
+
+<!-- 이미 찜 한 영화인지 조회 -->
+<select id="getByMovieCodeWithUserId" parameterType="WishDTO" resultType="WishDTO">
+  SELECT * FROM user_movie_wish
+  WHERE user_id=#{user_id} and movie_code=#{movie_code}
+</select>
+
+</mapper>

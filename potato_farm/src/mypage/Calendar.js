@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 // import '../layout/Mypage.css';
 import './Calendar.css'
 
 const Calendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
+  // const [selectedDate, setSelectedDate] = useState(null);
+
+  
 
   const updateCalendar = () => {
     const currYear = currDate.getFullYear();
@@ -14,29 +18,39 @@ const Calendar = () => {
     const totalDays = lastDay.getDate();
     const firstDayIndex = firstDay.getDay();
 
+    // console.log(currDate);
+
     const dates = [];
     for (let i = 0; i < firstDayIndex; i++) {
       dates.push(<div key={`prev${i}`} className="date inactive"></div>);
     }
     for (let i = 1; i <= totalDays; i++) {
+      const date = new Date(currYear, currMonth, i);
       const isToday = new Date().toDateString() === new Date(currYear, currMonth, i).toDateString();
-      dates.push(<div key={i} className={`date ${isToday ? 'active' : ''}`}>{i}</div>);
+      dates.push(<div key={i} className={`date ${isToday ? 'active' : ''}`} onClick={() => handleDatePick(date)} >{i}</div>);
     }
     return dates;
-  }
+
+  };
 
   const handlePrevMonth = () => {
     setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1));
-  }
+  };
 
   const handleNextMonth = () => {
     setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() + 1));
-  }
+  };
 
   const handleToday = () => {
     setCurrDate(new Date());
-  }
+  };
 
+  const handleDatePick = (date) => {
+    console.log(date);
+    // setSelectedDate(date);
+    alert(`날짜를 선택했습니다: ${date.toDateString()}`);
+    
+  };
 
   return (
     <>

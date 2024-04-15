@@ -8,9 +8,11 @@ public interface UserService {
 	
 	public AuthInfo addUserProcess(UserDTO dto);
 	public AuthInfo loginProcess(UserDTO dto);
-	public void loginProcess2(UserDTO dto);
+	public void insertUserVisitProcess(UserDTO dto);
+	public boolean selectUserId(String id);
 
-	public UserDTO updateUserProcess(String id);
+	public UserDTO selectUserProcess(String id);
+
 	public AuthInfo updateUserProcess(UserDTO dto);
 	public void updatePassProcess(String id, ChangePwCommand changePw);
 	

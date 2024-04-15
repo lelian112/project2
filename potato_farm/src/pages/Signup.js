@@ -8,15 +8,15 @@ const Signup = () => {
   const [users, setUsers] = useState({
     id: '',
     pw: '',
-    // email: '',
+    email: '',
     name: '',
-    // pic: null,
-    // birth: '',
-    // country_code: '',
-    // phone: '',
+    pic: null,
+    birth: '',
+    country_code: '',
+    phone: '',
   });
 
-  // const { id, pw, email, name, pic, birth, country_code, phone } = users;
+  const { id, pw, email, name, pic, birth, country_code, phone } = users;
 
   const handleValueChange = (e) => {
     setUsers((prev) => {
@@ -24,24 +24,55 @@ const Signup = () => {
     })
   }
 
-  const [genders, setGenders] = useState(
-    {gender: 0}
-  );
+  // const [genders, setGenders] = useState(
+  //   { gender: 0 }
+  // );
 
-  const handleGenderChange = (e) => {
-    setGenders(parseInt(e.target.value));
-  };
+  // {/*gender check */}
+  // const handleGenderChange = (e) => {
+  //   setGenders(parseInt(e.target.value));
+  // };
 
   const [pwCheck, setPwCheck] = useState('');
 
   {/*비번체크 */ }
-  // const passCheck = (e) => {
-  //   if (pw !== e.target.value) {
-  //     setPwCheck('비밀번호 불일치');
-  //   } else {
-  //     setPwCheck('비밀번호 일치');
-  //   }
-  // };
+  const passCheck = (e) => {
+    if (pw !== e.target.value) {
+      setPwCheck('비밀번호 불일치');
+    } else {
+      setPwCheck('비밀번호 일치');
+    }
+  };
+
+  const [idcheck, setIdCheck] = useState(false);
+
+  {/*아디 체크 */ }
+  const IDcheck = async (e) => {
+    e.preventDefault();
+    const userInputId = users.id;
+    console.log(`User input ID: '${userInputId}'`);
+  
+    if (userInputId === "") {
+      alert('아이디 입력');
+      return;
+    }
+  
+    try {
+      const response = await axios.get(`/api/users/check-duplicate?id=${userInputId}`);
+      const isNotDuplicate  = response.data;
+
+      console.log(response.data);
+
+      if (isNotDuplicate) {
+        alert('사용 가능한 아이디입니다.');
+      } else {
+        alert('이미 사용중인 아이디 입니다.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('오류 발생');
+    }
+  };
 
   {/*파일 */ }
   const handleFileChange = (e) => {
@@ -74,7 +105,8 @@ const Signup = () => {
               {/*아이디*/}
               <div className='newId'>
                 <i class="login_icon fas fa-user  "></i>
-                <input type='text' className='input_text' placeholder='ID' name='id' onChange={handleValueChange} />
+                <input type='text' className='input_text' placeholder='ID' name='id' value={users.id} onChange={handleValueChange} />
+                <button id='checkID' onClick={IDcheck}>중복체크{idcheck}</button>
               </div>
 
               {/*비번*/}
@@ -84,11 +116,11 @@ const Signup = () => {
               </div>
 
               {/*비번체크*/}
-              {/* <div className='checkPw'>
+              <div className='checkPw'>
                 <i class="login_icon fas fa-lock  "></i>
-                <input type='password' className='input_text' placeholder='Password check' />
+                <input type='password' className='input_text' placeholder='Password check' onChange={passCheck} />
                 <span>{pwCheck}</span>
-              </div> */}
+              </div>
 
               {/*이메일*/}
               <div className='newEmail'>
@@ -119,20 +151,20 @@ const Signup = () => {
               </div>
 
               {/*성별 - 1 안들어감*/}
-              <div className='gender'>
+              {/* <div className='gender'>
                 <i class="login_icon fas fa-venus-mars fa-fw"></i>
 
-                <input type='radio' id='maleRadio' name='gender' value={genders.gender} checked={genders === 0} onChange={handleGenderChange}></input>
+                <input type='radio' id='maleRadio' name='gender' value={0} checked={genders.gender === 0} onChange={handleGenderChange}></input>
                 <label for='maleRadio'>
                   <div className='genderText'>Male</div>
                 </label>
 
-                <input type='radio' id='femaleRadio' name='gender' value={genders.gender} checked={genders === 1} onChange={handleGenderChange}></input>
+                <input type='radio' id='femaleRadio' name='gender' value={1} checked={genders.gender === 1} onChange={handleGenderChange}></input>
                 <label for='femaleRadio'>
                   <div className='genderText'>Female</div>
                 </label>
 
-              </div>
+              </div> */}
 
               {/*국가번호*/}
               <div className='countryCode'>
@@ -143,13 +175,13 @@ const Signup = () => {
               {/*전화번호*/}
               <div className='phoneNo'>
                 <i class="login_icon fas fa-mobile-screen fa-fw"></i>
-                <input type='text' className='input_text' placeholder='Phone Number' maxLength='11' name='phone'  onChange={handleValueChange} />
+                <input type='text' className='input_text' placeholder='Phone Number' maxLength='11' name='phone' onChange={handleValueChange} />
               </div>
 
             </div>
 
             <button id='signupSubmit'>SignUp</button>
-
+            {/* <p>select<strong>{genders}</strong></p> */}
           </div>
         </form>
 

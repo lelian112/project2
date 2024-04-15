@@ -15,61 +15,57 @@ const EditInfo = () => {
           </p>
         </div> */}
 
-        <div className='editTable'>
-          <table id='edit'>
-            <tr>
-              <th>hi</th>
-              <th>hihi</th>
+        <div className='editInfo'>
+          <div className='editId'>
+            <i>아이디:</i>
+            <input type='text' className='input_text' placeholder='ID' name='id' value={localStorage.id} readOnly />
+          </div>
 
-            </tr>
-            <tr>
-              <td>아이디</td>
-              <td>dasd</td>
+          <div className='editPw'>
+            <i>비번:</i>
+            <input type='password' className='input_text' placeholder='pw' name='pw' />
+          </div>
 
-            </tr>
-            <tr>
-              <td>비밀번호</td>
-              <td>
-                <Link to='changepw'>
-                  <button id='changePw'>비밀번호 변경</button>
-                </Link>
-              </td>
+          <div className='editName'>
+            <i>이름:</i>
+            <input type='text' className='input_text' placeholder='name' name='name' value={localStorage.name}readOnly />
+          </div>
 
-            </tr>
-            <tr>
-              <td>이메일주소</td>
-              <td>dasd</td>
+          <div className='editNick'>
+            <i>닉네임:</i>
+            <input type='text' className='input_text' placeholder='nickname' name='nickname' />
+          </div>
 
-            </tr>
-            <tr>
-              <td>닉네임</td>
-              <td>dasd</td>
+          <div className='editEmail'>
+            <i>이메일:</i>
+            <input type='text' className='input_text' placeholder='email' name='email' value={localStorage.email} />
+          </div>
 
-            </tr>
-            <tr>
-              <td>생년월일</td>
-              <td>dasd</td>
+          <div className='editPic'>
+            <i>프로필:</i>
+            <input type='file' className='input_text' />
+          </div>
 
-            </tr>
-            <tr>
-              <td>휴대전화 번호</td>
-              <td>dasdasdasasdasdasdasda</td>
+          <div className='editBirth'>
+            <i>생일:</i>
+            <input type='text' className='input_text' placeholder='birth' name='birth' />
+          </div>
 
-            </tr>
+          <div className='editCountryCode'>
+            <i>국가:</i>
+            <input type='text' className='input_text' placeholder='countryCode' name='countryCode' />
+          </div>
 
-            <tr>
-              <td>한줄 소개</td>
-              <td>dasdasdasasda</td>
+          <div className='editPhone'>
+            <i>전화번호:</i>
+            <input type='text' className='input_text' placeholder='phoneNo' name='phoneNo' />
+          </div>
 
-            </tr>
+          <div className='editMbti'>
+            <i>MBTI:</i>
+            <input type='text' className='input_text' placeholder='mbti' name='mbti' />
+          </div>
 
-            <tr>
-              <td>프로필 사진</td>
-              <td>dasdasdasasda</td>
-
-            </tr>
-
-          </table>
         </div>
 
         <button id='deleteAcct'>회원탈퇴</button>

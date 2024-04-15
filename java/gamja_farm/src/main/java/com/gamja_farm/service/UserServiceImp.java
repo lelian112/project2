@@ -31,12 +31,22 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public void loginProcess2(UserDTO dto) {
+	public void insertUserVisitProcess(UserDTO dto) {
 		userMapper.insertUserVisit(dto);
 	}
 
 	@Override
-	public UserDTO updateUserProcess(String id) {
+	public boolean selectUserId(String id) {
+
+		if ( userMapper.selectUserId(id) == 0 ){
+			return true;
+		}else {
+			return false;
+		}		
+	}
+
+	@Override
+	public UserDTO selectUserProcess(String id) {
 		return userMapper.selectUser(id);
 	}
 

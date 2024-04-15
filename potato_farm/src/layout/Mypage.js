@@ -52,6 +52,22 @@ const Mypage = () => {
                 </p>
               </div>
 
+              {/*방문자 수 */}
+              <div className='box visitors'>
+                <p>
+                  방문자 수 
+                </p>
+              </div>
+
+              {/*팔로워 팔로잉 */}
+              <div className='box follow'>
+                <p>
+                  팔로잉
+                </p>
+              </div>
+
+              <div className='line' />
+
               {/*한줄소개 */}
               <div className='box aboutMyself'>
                 <p>
@@ -59,21 +75,7 @@ const Mypage = () => {
                 </p>
               </div>
 
-              <div className='line' />
-
-              {/*방문자 수 */}
-              <div className='box visitors'>
-                <p>
-                  ihihihih
-                </p>
-              </div>
-
-              {/*팔로워 팔로잉 */}
-              <div className='box follow'>
-                <p>
-                  dsadasdasd
-                </p>
-              </div>
+              
 
             </div>
 

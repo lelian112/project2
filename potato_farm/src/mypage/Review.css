@@ -1,4 +1,4 @@
-#reviewContainer{
+#reviewContainer {
   background-color: wheat;
   width: 440px;
   height: 450px;
@@ -7,58 +7,55 @@
   top: -40%;
 }
 
-#reviewContainer h3{
+#reviewContainer h3 {
   margin: 0;
-  padding: 10px 10px 10px 0px; /*위 아래 오른쪽 왼쪽*/
+  padding: 10px 10px 10px 0px;
+  /*위 아래 오른쪽 왼쪽*/
 }
 
-#reviewContainer .line{
+#reviewContainer .line {
   border: 1px solid grey;
   width: 440px;
 }
 
-.eachContainer{
+.eachContainer {
   display: flex;
   background-color: grey;
-  width: 100px;
-  height: 100px;
+  width: 390px;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+  /* margin: auto; */
 }
 
-.review{
+.review {
   display: grid;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-rows: repeat(0, 100px);
   /* grid-template-rows: auto; */
-  gap: 30px;
-  justify-content: center;
-  width: 400px;
+  gap: 20px;
+  width: 420px;
   height: 330px;
   overflow: auto;
   padding: 10px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
+  justify-content: flex-start;
   position: relative;
-  left: 5%;
+  left: 2.5%;
   top: 3%;
 }
 
-/* .review .movie{
-  
-  justify-content: left;
-  align-items: center;
-  background-color: white;
-  height: 150px;
-  width: 120px;
-  position: relative;
-  left: -1%;
-  top: 1%;
-} */
-
-/* .review .reviewContent{
+.review .movie {
   display: flex;
   background-color: white;
-  width: 250px;
-  height: 150px;
-  position: relative;
-  top: 7%;
-  left: 1%;
-} */
+  height: 110px;
+  width: 90px;
+  margin-right: 15px; /* 오른쪽에 여백 추가 */
+}
+
+.review .reviewContent {
+  display: flex;
+  background-color: wheat;
+  width: 275px; /* 남은 공간을 채우도록 조절 */
+  height: 110px;
+}

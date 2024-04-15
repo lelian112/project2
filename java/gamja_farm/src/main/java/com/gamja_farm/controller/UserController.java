@@ -1,5 +1,8 @@
 package com.gamja_farm.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamja_farm.authInfo.AuthInfo;
@@ -45,18 +49,26 @@ public class UserController {
 		userDTO.setPw(encodePassword.encode(userDTO.getPw()));
 		AuthInfo authInfo = userService.addUserProcess(userDTO);
 
-		userService.loginProcess2(userDTO);
+		userService.insertUserVisitProcess(userDTO);
 
 		return ResponseEntity.ok(authInfo);
 
 	}  // end adduser()
 	
 	
+	@Operation(summary="아이디 중복 체크", description="아이디 중복 체크 API")
+	@GetMapping("/api/users/check-duplicate")
+	public ResponseEntity<Boolean> checkUserIdDuplicate(@RequestParam("id") String id) {
+		boolean isDuplicate = userService.selectUserId(id);				
+		return ResponseEntity.ok(isDuplicate);
+	}
+
+
 	// 회원정보 가져오기
 	@Operation(summary="회원정보 보기", description="회원정보 보기 API")
 	@GetMapping("/user/editinfo/{id}")  // http://localhost:8090/user/editinfo/{id}
 	public ResponseEntity<UserDTO> getUser(@PathVariable("id") String id) {
-		return ResponseEntity.ok(userService.updateUserProcess(id));
+		return ResponseEntity.ok(userService.selectUserProcess(id));
 	}  // end getUser()
 	
 	

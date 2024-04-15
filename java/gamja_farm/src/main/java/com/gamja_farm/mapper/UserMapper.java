@@ -9,6 +9,8 @@ public interface UserMapper {
 	
 	public int insertUser(UserDTO dto);
 	public void insertUserVisit(UserDTO dto);
+	public int selectUserId(String id);
+
 	public UserDTO selectUser(String id);
 	
 	public void updateUser(UserDTO dto);

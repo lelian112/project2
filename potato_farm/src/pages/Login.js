@@ -10,10 +10,17 @@ const Login = () => {
   const [inputs, setInputs] = useState({
     id: '',
     pw: '',
+    name: '',
+    email:'',
+    nickName:'',
+    pic:null,
+    birth:'',
+    country_code: '',
+    phone: '',
   });
 
   {/*variable 하나로 묶기 */ }
-  const { id, pw } = inputs;
+  const { id, pw, email, name, pic, birth, country_code, phone } = inputs;
 
   const handleValueChange = (e) => {
     setInputs((prev) => {
@@ -33,6 +40,7 @@ const Login = () => {
         localStorage.setItem('id', response.data.id);
         // localStorage.setItem('pw', response.data.pw);
         localStorage.setItem('name', response.data.name);
+        
         localStorage.setItem('isLogin', true);
 
         setInputs({ id: '', pw: '' });

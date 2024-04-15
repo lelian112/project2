@@ -94,7 +94,7 @@
   transition: .2s;
   /* border-radius: 5px; */
   /* margin-left: 10px; */
-  width: 75%;
+  width: 60%;
   padding: 10px;
 	/* padding-left: 24px; */
   
@@ -160,4 +160,11 @@
 
 .genderText {
   display: inline-block;
+}
+
+/*체크 글씨*/
+#signupContainer span{
+  color: red;
+  font-size: 0.75em;
+  margin-left: 20px;
 }
