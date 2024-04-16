@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const Signup = () => {
 
+  {/*name -> nick_name으로 바꾸기 */ }
   const [users, setUsers] = useState({
     id: '',
     pw: '',
@@ -16,6 +17,7 @@ const Signup = () => {
     phone: '',
   });
 
+  {/*name -> nick_name으로 바꾸기 */ }
   const { id, pw, email, name, pic, birth, country_code, phone } = users;
 
   const handleValueChange = (e) => {
@@ -24,14 +26,16 @@ const Signup = () => {
     })
   }
 
-  // const [genders, setGenders] = useState(
-  //   { gender: 0 }
-  // );
+  const [genders, setGenders] = useState(
+    { gender: '' }
+  );
 
-  // {/*gender check */}
-  // const handleGenderChange = (e) => {
-  //   setGenders(parseInt(e.target.value));
-  // };
+  const { gender } = genders;
+
+  {/*gender check */ }
+  const handleGenderChange = (e) => {
+    setGenders((e.target.value));
+  };
 
   const [pwCheck, setPwCheck] = useState('');
 
@@ -51,15 +55,16 @@ const Signup = () => {
     e.preventDefault();
     const userInputId = users.id;
     console.log(`User input ID: '${userInputId}'`);
-  
+
     if (userInputId === "") {
       alert('아이디 입력');
       return;
     }
-  
+
     try {
-      const response = await axios.get(`/api/users/check-duplicate?id=${userInputId}`);
-      const isNotDuplicate  = response.data;
+      const response = await axios
+        .get(`/api/users/check-duplicate?id=${userInputId}`);
+      const isNotDuplicate = response.data;
 
       console.log(response.data);
 
@@ -154,12 +159,12 @@ const Signup = () => {
               {/* <div className='gender'>
                 <i class="login_icon fas fa-venus-mars fa-fw"></i>
 
-                <input type='radio' id='maleRadio' name='gender' value={0} checked={genders.gender === 0} onChange={handleGenderChange}></input>
+                <input type='radio' id='maleRadio' name='gender' value={'male'} checked={genders === 'male'} onChange={handleGenderChange}></input>
                 <label for='maleRadio'>
                   <div className='genderText'>Male</div>
                 </label>
 
-                <input type='radio' id='femaleRadio' name='gender' value={1} checked={genders.gender === 1} onChange={handleGenderChange}></input>
+                <input type='radio' id='femaleRadio' name='gender' value={'female'} checked={genders === 'female'} onChange={handleGenderChange}></input>
                 <label for='femaleRadio'>
                   <div className='genderText'>Female</div>
                 </label>

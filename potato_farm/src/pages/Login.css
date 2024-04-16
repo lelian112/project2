@@ -82,3 +82,23 @@ body {
   border-radius: 20px;
   margin-top: 3%;
 }
+
+.socialLogin{
+  background-color: white;
+  width: 400px;
+  height: 80px;
+  position: relative;
+  margin: auto;
+  top: 23%;
+  border-radius: 20px;
+}
+
+.socialLogin p{
+  padding: 10px;
+}
+
+.socialLogin button{
+  /* padding: 10px; */
+  border-radius: 50%;
+  margin: 5px;
+}

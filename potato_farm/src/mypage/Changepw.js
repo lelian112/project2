@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Changepw.css';
 import { Link } from 'react-router-dom';
 
 const Changepw = () => {
+
+  const [changePw, setChangePw] = useState({
+    pw:'',
+  })
+
+  const {pw} = changePw;
+
+  const handleValueChange = (e) => {
+    setChangePw({...changePw, [e.target.name]:e.target.value})
+  };
+  
+  const [passwordCheck, setPasswordCheck] = useState('');
+
+  const passChange = (e) => {
+    if (pw !== e.target.value) setPasswordCheck('비밀번호 불일치');
+    else setPasswordCheck('비밀번호 일치');
+  };
+
+
   return (
     <>
       <div id='changepwContainer'>
@@ -19,14 +38,16 @@ const Changepw = () => {
             <tr>
               <td>비밀번호</td>
               <td>
-                <input type='password' className='pwInput' />
+                <input type='password' className='pwInput' name='pw' onChange={handleValueChange} />
+                
               </td>
 
             </tr>
             <tr>
               <td>비밀번호 확인</td>
               <td>
-                <input type='password' className='pwInput' />
+                <input type='password' className='pwInput' onChange={passChange} />
+                <span>{passwordCheck}</span>
               </td>
             </tr>
           </table>

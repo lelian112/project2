@@ -66,11 +66,17 @@
 }
 
 
-
-
 #deleteAcct{
   position: relative;
   top: 16%;
   left: 15%;
+}
+
+#editContainer .input_text{
+  color: grey;
+}
+
+#editContainer .input_text:hover{
+  color: black;
 }
 

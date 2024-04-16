@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./Login.css"
 import '@fortawesome/fontawesome-free/css/all.css';
 import { Link } from 'react-router-dom';
-import  axios  from 'axios';
+import axios from 'axios';
 
 
 const Login = () => {
@@ -11,10 +11,10 @@ const Login = () => {
     id: '',
     pw: '',
     name: '',
-    email:'',
-    nickName:'',
-    pic:null,
-    birth:'',
+    email: '',
+    nickName: '',
+    pic: null,
+    birth: '',
     country_code: '',
     phone: '',
   });
@@ -40,7 +40,7 @@ const Login = () => {
         localStorage.setItem('id', response.data.id);
         // localStorage.setItem('pw', response.data.pw);
         localStorage.setItem('name', response.data.name);
-        
+
         localStorage.setItem('isLogin', true);
 
         setInputs({ id: '', pw: '' });
@@ -73,13 +73,20 @@ const Login = () => {
             </div>
 
             <button id='loginSubmit'>Login</button>
-            
+
             <Link to='/policy'>
               <button id='signUpButton'>SignUp</button>
             </Link>
           </form>
 
         </div >
+        <div className='socialLogin'>
+          <p>다른방법 로그인:</p>
+          <button id='a'>a</button>
+          <button id='b'>b</button>
+          <button id='c'>c</button>
+          <button id='d'>d</button>
+        </div>
       </div >
     </>
   );

@@ -45,7 +45,7 @@
 /*table*/
 #changepw {
   border-collapse: collapse;
-  width: 70%;
+  width: 90%;
   position: relative;
   /* left: 15%; */
   /* top: 20%; */
@@ -76,4 +76,10 @@
 
 .changepwContent button{
   margin: 10px;
+}
+
+#changepwContainer span{
+  color: red;
+  font-size: 0.75em;
+  margin-left: 10px;
 }

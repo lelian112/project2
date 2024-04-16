@@ -27,3 +27,40 @@ const currentYear = new Date().getFullYear();
                     <option key={year} value={year}>{year}</option>
                   ))}
                 </select>
+
+---------------------------------------------------------------------------------------------
+// const config = {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Authorization: localStorage.getItem('Authorization'),
+  //   },
+  // };
+
+  // const [users, setUsers] = useState({
+  //   id: '',
+  //   email: '',
+  // });
+
+  // const { id, email } = users;
+
+  // const handleValueChange = (e) => {
+  //   setUsers({ ...users, [e.target.name]: e.target.value });
+  // }
+
+  // const info = async (e) => {
+  //   await axios
+  //   .get(`user/editinfo/${localStorage.id}`)
+  //   .then((response) => {
+  //     console.log(response)
+  //     setUsers((prev) => {
+  //       return {...prev, ...response.data};
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   })
+  // };
+
+  // useEffect(() => {
+  //   info();
+  // }, []);

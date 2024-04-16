@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './EditInfo.css';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const EditInfo = () => {
 
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: localStorage.getItem('Authorization'),
+    },
+  };
+
+  const [users, setUsers] = useState({
+    id: '',
+    email: '',
+    phone: '',
+    country_code: '',
+  });
+
+  // const { id, email, phone } = users;
+
+
+  {/*이거를 onchange에 넣어야지만 글짜 적기 가능 */ }
+  const handleValueChange = (e) => {
+    setUsers({ ...users, [e.target.name]: e.target.value });
+  }
+
+  const info = async () => {
+    try {
+      const response = await axios
+        .get(`/user/editinfo/${localStorage.id}`);
+      const data = response.data;
+
+      console.log(data);
+
+      setUsers({ ...users, phone: data.phone, country_code: data.country_code });
+
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useEffect(() => {
+    info();
+  }, []);
 
   return (
     <>
@@ -23,12 +64,15 @@ const EditInfo = () => {
 
           <div className='editPw'>
             <i>비번:</i>
-            <input type='password' className='input_text' placeholder='pw' name='pw' />
+            {/* <input type='password' className='input_text' placeholder='pw' name='pw' /> */}
+            <Link to='changepw'>
+              <button id='changePw'>changePw</button>
+            </Link>
           </div>
 
           <div className='editName'>
             <i>이름:</i>
-            <input type='text' className='input_text' placeholder='name' name='name' value={localStorage.name}readOnly />
+            <input type='text' className='input_text' placeholder='name' name='name' value={localStorage.name} readOnly />
           </div>
 
           <div className='editNick'>
@@ -53,12 +97,12 @@ const EditInfo = () => {
 
           <div className='editCountryCode'>
             <i>국가:</i>
-            <input type='text' className='input_text' placeholder='countryCode' name='countryCode' />
+            <input type='text' className='input_text' placeholder='countryCode' name='countryCode' value={users.country_code} onChange={handleValueChange} />
           </div>
 
           <div className='editPhone'>
             <i>전화번호:</i>
-            <input type='text' className='input_text' placeholder='phoneNo' name='phoneNo' />
+            <input type='text' className='input_text' placeholder='phone' name='phone' value={users.phone} onChange={handleValueChange} />
           </div>
 
           <div className='editMbti'>

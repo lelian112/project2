@@ -7,8 +7,6 @@ const Calendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
   // const [selectedDate, setSelectedDate] = useState(null);
 
-  
-
   const updateCalendar = () => {
     const currYear = currDate.getFullYear();
     const currMonth = currDate.getMonth();
@@ -49,13 +47,16 @@ const Calendar = () => {
     console.log(date);
     // setSelectedDate(date);
     alert(`날짜를 선택했습니다: ${date.toDateString()}`);
-    
+
   };
+
+
 
   return (
     <>
 
       <div id='calendarContainer'>
+
         <div className='calendarTitle'>
           <button id='prevBtn' onClick={handlePrevMonth}>
             <i className='icon fa-solid fa-chevron-left'></i>
@@ -82,6 +83,11 @@ const Calendar = () => {
         </div>
 
         <button id='today' onClick={handleToday}>today</button>
+        <button id='change' >change</button>
+
+      </div>
+      <div className='calendarInfo'>
+        <button id='change' >change</button>
       </div>
 
     </>
