@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, Outlet } from 'react-router-dom';
+import axios from 'axios';
 import './Mypage.css';
 
 const Mypage = () => {
+
+  const [profilePic, setProfilePic] = useState({
+    pic: '',
+  });
+
+  const info = async () => {
+    try {
+      const response = await axios
+        .get(`/user/editinfo/${localStorage.id}`);
+      const data = response.data;
+
+      console.log(data);
+
+      setProfilePic({pic:profilePic});
+
+    } catch (error) {
+      console.error('Error', error);
+    }
+  };
+
+  useEffect(() => {
+    info();
+  }, []);
+
   return (
     <>
       <div id='mypageLayout'> {/*지우는거 */}
@@ -41,21 +66,13 @@ const Mypage = () => {
             <div id='profile'>
               {/*프로필사진 */}
               <div className='box profilePic'>
-                <p>
-                  hi
-                  asdkjasd
-                  dasjkdnals
-                  daksjdnas
-                  adsjdnasd
-                  dsajdnaksjdnkasndakdsajdnasjdn
-
-                </p>
+                <input value={profilePic.pic}></input>
               </div>
 
               {/*방문자 수 */}
               <div className='box visitors'>
                 <p>
-                  방문자 수 
+                  방문자 수
                 </p>
               </div>
 
@@ -75,7 +92,7 @@ const Mypage = () => {
                 </p>
               </div>
 
-              
+
 
             </div>
 

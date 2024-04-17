@@ -10,7 +10,7 @@ const Signup = () => {
     id: '',
     pw: '',
     email: '',
-    name: '',
+    nick_name: '',
     pic: null,
     birth: '',
     country_code: '',
@@ -18,7 +18,7 @@ const Signup = () => {
   });
 
   {/*name -> nick_name으로 바꾸기 */ }
-  const { id, pw, email, name, pic, birth, country_code, phone } = users;
+  const { id, pw, email, nick_name, pic, birth, country_code, phone } = users;
 
   const handleValueChange = (e) => {
     setUsers((prev) => {
@@ -48,7 +48,7 @@ const Signup = () => {
     }
   };
 
-  const [idcheck, setIdCheck] = useState(false);
+  // const [idcheck, setIdCheck] = useState(false);
 
   {/*아디 체크 */ }
   const IDcheck = async (e) => {
@@ -87,6 +87,7 @@ const Signup = () => {
     });
   };
 
+  {/*form submit */}
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios
@@ -111,7 +112,7 @@ const Signup = () => {
               <div className='newId'>
                 <i class="login_icon fas fa-user  "></i>
                 <input type='text' className='input_text' placeholder='ID' name='id' value={users.id} onChange={handleValueChange} />
-                <button id='checkID' onClick={IDcheck}>중복체크{idcheck}</button>
+                <button id='checkID' onClick={IDcheck}>중복체크</button>
               </div>
 
               {/*비번*/}
@@ -134,12 +135,11 @@ const Signup = () => {
               </div>
             </div>
 
-            {/*인적사항 프론트에선 nickname, 백에선 name*/}
             <div id='addInfo'>
               {/*닉네임*/}
               <div className='newNickname'>
                 <i class="login_icon fas fa-user fa-fw"></i>
-                <input type='text' className='input_text' placeholder='Nickname' name='name' onChange={handleValueChange} />
+                <input type='text' className='input_text' placeholder='Nickname' name='nick_name' onChange={handleValueChange} />
               </div>
 
               {/*프로필 사진*/}

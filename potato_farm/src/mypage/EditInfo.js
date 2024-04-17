@@ -17,6 +17,7 @@ const EditInfo = () => {
     email: '',
     phone: '',
     country_code: '',
+    nick_name: '',
   });
 
   // const { id, email, phone } = users;
@@ -72,17 +73,17 @@ const EditInfo = () => {
 
           <div className='editName'>
             <i>이름:</i>
-            <input type='text' className='input_text' placeholder='name' name='name' value={localStorage.name} readOnly />
+            <input type='text' className='input_text' placeholder='name' name='name' readOnly />
           </div>
 
           <div className='editNick'>
             <i>닉네임:</i>
-            <input type='text' className='input_text' placeholder='nickname' name='nickname' />
+            <input type='text' className='input_text' placeholder='nickname' name='nick_name' value={localStorage.nick_name} />
           </div>
 
           <div className='editEmail'>
             <i>이메일:</i>
-            <input type='text' className='input_text' placeholder='email' name='email' value={localStorage.email} />
+            <input type='text' className='input_text' placeholder='email' name='email'  />
           </div>
 
           <div className='editPic'>

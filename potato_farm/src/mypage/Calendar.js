@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import '../layout/Mypage.css';
 import './Calendar.css'
@@ -43,19 +43,36 @@ const Calendar = () => {
     setCurrDate(new Date());
   };
 
+  const [selectedDate, setSelectedDate] = useState('');
+
   const handleDatePick = (date) => {
     console.log(date);
-    // setSelectedDate(date);
-    alert(`날짜를 선택했습니다: ${date.toDateString()}`);
+    setSelectedDate(date); //selectedDate 값 넣기
+    // alert(`날짜를 선택했습니다: ${date.toDateString()}`);
+    changePosition();
 
   };
 
+  {/*날짜 이벤트창 나오게 하기 */}
+  const [isCalendarTop, setIsCalendarTop] = useState(true);
+  const calendarContainerRef = useRef(null);
+  const calendarInfoRef = useRef(null);
 
+  const changePosition = () => {
+    if(isCalendarTop){
+      calendarContainerRef.current.style.zIndex = '1';
+      calendarInfoRef.current.style.zIndex = '2';
+    } else{
+      calendarContainerRef.current.style.zIndex = '2';
+      calendarInfoRef.current.style.zIndex = '1';
+    }
+    setIsCalendarTop(!isCalendarTop);
+  }
 
   return (
     <>
 
-      <div id='calendarContainer'>
+      <div id='calendarContainer' ref={calendarContainerRef}>
 
         <div className='calendarTitle'>
           <button id='prevBtn' onClick={handlePrevMonth}>
@@ -78,7 +95,8 @@ const Calendar = () => {
           <div className='day'>일</div>
         </div>
 
-        <div className='dates' id='dates'>
+        {/*날짜 클릭 하는곳 */}
+        <div className='dates' id='dates' >
           {updateCalendar()}
         </div>
 
@@ -86,9 +104,11 @@ const Calendar = () => {
         <button id='change' >change</button>
 
       </div>
-      <div className='calendarInfo'>
-        <button id='change' >change</button>
-      </div>
+
+        <div className='calendarInfo' ref={calendarInfoRef}>
+          <button id='change' onClick={changePosition} >change</button>
+          {selectedDate && <p>{selectedDate.toDateString()}</p>} {/*selectedDate값이 있으면 <p>호출됨 */}
+        </div>
 
     </>
   );

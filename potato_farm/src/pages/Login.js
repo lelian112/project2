@@ -10,17 +10,12 @@ const Login = () => {
   const [inputs, setInputs] = useState({
     id: '',
     pw: '',
-    name: '',
-    email: '',
-    nickName: '',
-    pic: null,
-    birth: '',
-    country_code: '',
-    phone: '',
+    nick_name: '',
+    email:'',
   });
 
   {/*variable 하나로 묶기 */ }
-  const { id, pw, email, name, pic, birth, country_code, phone } = inputs;
+  const { id, pw } = inputs;
 
   const handleValueChange = (e) => {
     setInputs((prev) => {
@@ -39,6 +34,7 @@ const Login = () => {
         localStorage.setItem('Authorization', jwtToken);
         localStorage.setItem('id', response.data.id);
         // localStorage.setItem('pw', response.data.pw);
+        localStorage.setItem('nickName', response.data.nickName);
         localStorage.setItem('name', response.data.name);
 
         localStorage.setItem('isLogin', true);
