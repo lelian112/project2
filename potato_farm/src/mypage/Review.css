@@ -59,3 +59,8 @@
   width: 275px; /* 남은 공간을 채우도록 조절 */
   height: 110px;
 }
+
+#reviewContainer img {
+  width: 90px;
+  height: 110px;
+}

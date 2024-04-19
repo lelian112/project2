@@ -1,4 +1,4 @@
-#wishContainer{
+#ratingContainer{
   background-color: wheat;
   width: 440px;
   height: 450px;
@@ -7,17 +7,17 @@
   top: -40%;
 }
 
-.wishTitle h3{
+.ratingTitle h3{
   margin: 0;
   padding: 10px 10px 10px 0px; /*위 아래 오른쪽 왼쪽*/
 }
 
-.wishTitle .line{
+.ratingTitle .line{
   border: 1px solid grey;
   width: 440px;
 }
 
-.movieContainer{
+.ratingContainer{
   display: grid;
   grid-template-columns: repeat(3, 100px); /* 3열 각각 100px 너비 */
   grid-template-rows: auto; /* 자동 행 크기 */
@@ -35,7 +35,7 @@
   top: 3%;
 }
 
-#wishContainer .movie{
+#ratingContainer .movie{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@
   
 }
 
-#wishContainer img{
+#ratingContainer img{
   width: 100px;
   height: 150px;
 }

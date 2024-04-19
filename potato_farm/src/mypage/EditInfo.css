@@ -1,3 +1,5 @@
+
+
 #editContainer{
   background-color: wheat;
   width: 440px;
@@ -6,7 +8,6 @@
   left: 43%;
   top: -40%;
 }
-
 
 
 .editInfo {
@@ -27,11 +28,12 @@
 
 .editInfo div{
   display: flex;
-  background-color: wheat;
+  background-color: lightpink;
   height: 40px;
   width: 400px;
   align-items: center;
   margin-right: 15px;
+  border-radius: 10px;
 }
 
 #editContainer .input_text{
@@ -48,16 +50,6 @@
   
 }
 
-#editContainer .input_text::placeholder {
-  color: gray; /* 플레이스홀더의 기본 색상 설정 */
-}
-
-#editContainer .input_text:focus::placeholder {
-  color: gray; /* 색상을 원하는 색으로 변경하세요 */
-  transform: translateY(-80%);
-  transition: transform 0.3s ease-in-out;
-}
-
 #editContainer .input_text:active,
 #editContainer .input_text:hover,
 #editContainer .input_text:focus {
@@ -65,11 +57,16 @@
 	border-bottom-color: #6A679E;
 }
 
-
-#deleteAcct{
+#editContainer button {
   position: relative;
   top: 16%;
-  left: 15%;
+  /* left: 15%; */
+  width: 400px;
+}
+
+#editContainer #changePw{
+  width: 100px;
+  
 }
 
 #editContainer .input_text{
@@ -79,4 +76,17 @@
 #editContainer .input_text:hover{
   color: black;
 }
+
+#editContainer span{
+  vertical-align: middle;
+  margin-right: 20px;
+  display: inline-block;
+  min-width: 70px;
+}
+
+#editContainer .editCaption{
+  height: 50px;
+}
+
+
 

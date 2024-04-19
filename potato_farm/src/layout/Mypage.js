@@ -5,24 +5,53 @@ import './Mypage.css';
 
 const Mypage = () => {
 
-  const [profilePic, setProfilePic] = useState({
-    pic: '',
-  });
+  // const [profilePic, setProfilePic] = useState({
+  //   pic: '',
+  // });
 
+  // const info = async () => {
+  //   try {
+  //     const response = await axios
+  //       .get(`/user/editinfo/${localStorage.id}`);
+  //     const data = response.data;
+
+  //     console.log(data.pic);
+
+  //     setProfilePic(data.pic);
+
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   info();
+  // }, []);
+
+  const [daliyCnt, setDailyCnt] = useState(0);
+  const [totalCnt, setTotalCnt] = useState(0);
+  const [propic, setPropic] = useState('');
+
+  //방문자 수 가져오기
   const info = async () => {
     try {
       const response = await axios
-        .get(`/user/editinfo/${localStorage.id}`);
+        .post(`/mypage/${localStorage.id}`);
       const data = response.data;
-
       console.log(data);
 
-      setProfilePic({pic:profilePic});
+      setDailyCnt(data.totalCnt);
+      setTotalCnt(data.totalCnt);
+      // setPropic(data.pic);
+
 
     } catch (error) {
-      console.error('Error', error);
+      console.error('error', error);
     }
-  };
+  }
+
+  
+
 
   useEffect(() => {
     info();
@@ -66,13 +95,14 @@ const Mypage = () => {
             <div id='profile'>
               {/*프로필사진 */}
               <div className='box profilePic'>
-                <input value={profilePic.pic}></input>
+                <img></img>
               </div>
 
               {/*방문자 수 */}
               <div className='box visitors'>
                 <p>
-                  방문자 수
+                  <p>오늘 방문자 수:{daliyCnt}</p>
+                  <p>모든 방문자 수:{totalCnt}</p>
                 </p>
               </div>
 

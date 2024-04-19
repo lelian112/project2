@@ -12,10 +12,17 @@ const Wish = () => {
       const response = await axios
         .get(`/wish/${localStorage.id}`);
       const data = response.data;
+      console.log(data);
 
-      const movieCodes = data.map((item) => item.movie_code);
+      //db에서 가져온 data를 한줄씩 for(map)문으로 돌려짐
+      //각 줄당 item이라는 변수명에 들어감
+      //item = {idx: 18, user_id: 'test', movie_code: '20247780', wish: 'Y'}
+      //여기서 moviecode만 가져옴
+      // const movieCodes = data.WishList.map((item) => item.movie_code);
+      const movieCodes = data.WishList.map((item) => item.poster);
       console.log(movieCodes);
-
+      
+      //setmovie_code 안에 moviecode 배열 들어감
       setMovie_code(movieCodes);
 
     } catch (error) {
@@ -36,9 +43,10 @@ const Wish = () => {
         </div>
 
         <div className='movieContainer'>
-          {movie_code && movie_code.map((code, index) => (
-            <div className="movie" key={index}>
-              <p>{code}</p>
+          {movie_code && movie_code.map((code, idx) => (
+            <div className="movie" key={idx}>
+              {/* <p>{code}</p> */}
+              <img src={code}></img>
             </div>
           ))}
           {/* <div className='movie'></div>
