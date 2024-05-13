@@ -1,0 +1,206 @@
+#mypageLayout {
+  background-color: transparent;
+  width: 1000px;
+  height: 1000px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+#mypageContainer {
+  /* background-color: black; */
+  position: relative;
+  width: 900px;
+  height: 600px;
+  box-sizing: border-box;
+  top: 13%;
+  border-radius: 20px;
+  left: 5%;
+}
+
+#background {
+  background-color: #8ecad2;
+  position: relative;
+  width: 850px;
+  height: 570px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  top: 2.5%;
+  left: 2.5%;
+  display: flex;
+  justify-content: center;
+}
+
+#profile {
+  border: 0.1px solid black;
+  background-color: white;
+  position: absolute;
+  width: 230px;
+  height: 500px;
+  border-radius: 25px;
+  left: 3%;
+  top: 6%;
+  box-sizing: border-box;
+}
+
+#board {
+  border: 0.1px solid black;
+  background-color: white;
+  position: absolute;
+  width: 520px;
+  height: 500px;
+  border-radius: 25px;
+  top: 6%;
+  left: 35%;
+  box-sizing: border-box;
+}
+
+#mypageContainer .container {
+  width: 62px;
+  height: 17px;
+  position: relative;
+  top: -80%;
+  /* 부모 요소의 상단에 위치 */
+  left: 29.9%;
+  /* 부모 요소의 좌측에 위치 */
+  /* background-color: black; */
+  margin-bottom: 35%;
+  box-sizing: border-box;
+}
+
+.container .link {
+  background-color: grey;
+  width: 60px;
+  height: 3px;
+  border: 3px solid black;
+  border-radius: 50px;
+  position: relative;
+  margin: 10% 0%;
+}
+
+.box {
+  position: relative;
+  background-color: gray;
+  width: 180px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profilePic {
+  height: 160px;
+  top: 3%;
+}
+
+.aboutMyself {
+  height: 130px;
+  top: 15%;
+}
+.aboutMyself {
+  height: 110px;
+  top: 16%;
+  position: relative;
+  padding: 10px;
+}
+
+.line {
+  width: 225px;
+  position: relative;
+  border: 0.1px dotted black;
+  top: 12%;
+}
+
+.visitors {
+  height: 20px;
+  top: 5%;
+  /* left: -26%; */
+}
+
+.follow {
+  height: 100px;
+  top: 8%;
+}
+.mbti {
+  height: 20px;
+  top: 14%;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* justify-content: space-between; */
+  /* 요소들을 위 아래로 균등하게 배치 */
+  align-items: center;
+  /* 가운데 정렬 */
+  left: 45%;
+  top: 10%;
+}
+
+.buttonContainer button {
+  background-color: white;
+  position: relative;
+  border-radius: 10px;
+  height: 40px;
+  width: 90px;
+  left: 80%;
+  top: 10%;
+}
+
+#mypageContainer .visitors p {
+  display: inline;
+  color: white;
+  position: relative;
+  /* top: 50%; */
+  left: 3%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7em;
+  /* padding: 3px; */
+  /* width: 20px; */
+}
+
+#mypageContainer .mbti p {
+  display: inline;
+  color: white;
+  position: relative;
+  /* top: 50%; */
+  left: 33%;
+  transform: translate(-50%, -50%);
+  /* font-size: 0.2em; */
+  /* padding: 3px; */
+  /* width: 20px; */
+}
+
+.follow label {
+  padding: 10px;
+}
+
+.follow select {
+  margin-top: 10px;
+  width: 90px;
+}
+
+#mypageContainer .followbtnContainer {
+  position: relative;
+  width: 60px;
+  height: 20px;
+  left: 35%;
+  top: 1%;
+}
+
+#mypageContainer #tomypage {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 150px;
+  border-radius: 10px;
+}
+
+#profile img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 165px;
+  height: 150px;
+  border-radius: 15px;
+}

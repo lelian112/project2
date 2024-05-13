@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gamja_farm.mapper.MovieMapper">
+
+	<resultMap id="movieResultMap" type="MovieHomeDTO">
+		<result property="code" column="code" />
+		<result property="name_kor" column="name_kor" />
+		<result property="name_eng" column="name_eng" />
+		<result property="release_at" column="release_at" />
+		<result property="country" column="country" />
+		<result property="poster" column="poster" />
+		<result property="ranking" column="ranking" />
+		<result property="rate_avg" column="rate_avg" />
+	</resultMap>
+
+	<resultMap id="wishCount" type="java.util.Map">
+		<result property="count" column="count" javaType="Integer" />
+		<result property="wish" column="wish" javaType="String" />
+	</resultMap>
+
+
+	<select id="dailyList" parameterType="String" resultMap="movieResultMap">
+		SELECT m.code, m.name_kor, m.name_eng, m.release_at, m.country, m.poster, b.ranking,
+		(
+		SELECT ROUND(IFNULL(SUM(rate) / IFNULL(COUNT(*), 1), 0), 1) as rate_avg
+		FROM user_movie_rate umr
+		WHERE umr.movie_code = m.code) AS rate_avg
+		FROM movie m
+		INNER JOIN (
+		SELECT movie_code, ranking
+		FROM movie_boxoffice
+		WHERE type = "일별 박스오피스" AND box_at ="2024-04-25"        
+        LIMIT 10
+		) b ON m.code = b.movie_code
+		ORDER BY b.ranking ASC
+	</select>
+
+
+	<select id="weekList" parameterType="String" resultMap="movieResultMap">
+		SELECT m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster, b.ranking,
+		(SELECT ROUND(IFNULL(SUM(rate) / IFNULL(COUNT(*), 1), 0), 1)  as rate_avg
+		FROM user_movie_rate umr
+		WHERE umr.movie_code = m.code) AS rate_avg
+		FROM movie m
+		INNER JOIN (
+		SELECT movie_code, ranking
+		FROM movie_boxoffice
+		WHERE type = "주간 박스오피스"
+		ORDER BY box_week desc
+        LIMIT 10
+		) b ON m.code = b.movie_code
+        ORDER BY b.ranking ASC
+	</select>
+
+
+	<select id="domesticList" resultMap="movieResultMap">
+		SELECT m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster,
+		ROUND(IFNULL(SUM(umr.rate) / IFNULL(COUNT(umr.rate), 1), 0), 1) AS
+		rate_avg
+		FROM movie m
+		LEFT JOIN user_movie_rate umr ON m.code = umr.movie_code
+		WHERE m.country = "한국"
+		GROUP BY m.code, m.idx
+		ORDER BY m.release_at DESC
+		LIMIT 20
+	</select>
+
+	<select id="foreignList" resultMap="movieResultMap">
+		SELECT m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster,
+		ROUND(IFNULL(SUM(umr.rate) / IFNULL(COUNT(umr.rate), 1), 0), 1) AS
+		rate_avg
+		FROM movie m
+		LEFT JOIN user_movie_rate umr ON m.code = umr.movie_code
+		WHERE m.country != "한국"
+		GROUP BY m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster
+		ORDER BY m.release_at DESC, RAND()
+		LIMIT 20
+	</select>
+
+	<select id="animationList" resultMap="movieResultMap">
+		SELECT m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster,
+		ROUND(IFNULL(SUM(umr.rate) / IFNULL(COUNT(umr.rate), 1), 0), 1) AS
+		rate_avg
+		FROM movie m
+		LEFT JOIN user_movie_rate umr ON m.code = umr.movie_code
+		INNER JOIN (
+		SELECT movie_code
+		FROM movie_genre
+		WHERE genre_1 = "애니메이션" OR genre_2 = "애니메이션"
+		ORDER BY movie_code DESC
+		LIMIT 20
+		) AS mg ON m.code = mg.movie_code
+		GROUP BY m.code, m.name_kor, m.name_eng, m.release_at, m.country,
+		m.poster
+	</select>
+
+	<select id="genreList" resultMap="movieResultMap"
+		parameterType="MovieSearchDTO">
+		SELECT
+		m.code,
+		m.name_kor,
+		m.name_eng,
+		m.release_at,
+		m.country,
+		m.poster,
+		ROUND(IFNULL(SUM(umr.rate) / IFNULL(COUNT(umr.rate), 1), 0), 1) AS
+		rate_avg
+		FROM
+		movie m
+		JOIN movie_genre mg ON m.code = mg.movie_code
+		LEFT JOIN user_movie_rate umr ON m.code = umr.movie_code
+		WHERE
+		m.poster IS NOT NULL
+		AND (mg.genre_1 = #{genre} OR mg.genre_2 = #{genre} )
+		GROUP BY m.code
+		ORDER BY m.idx DESC
+		LIMIT #{startRow}, #{blockCount}
+	</select>
+
+	<select id="genreCount" resultType="int" parameterType="String">
+		SELECT count(*)
+		FROM movie_genre
+		WHERE genre_1 = #{genre} or genre_2 = #{genre}
+	</select>
+
+	<select id="movieDetail" resultType="MovieDetailDTO" parameterType="String">
+		SELECT m.*, p.plot, g.genre_1, g.genre_2,
+		(
+		SELECT total_audience
+		FROM movie_boxoffice
+		WHERE movie_code = #{code}
+		ORDER BY COALESCE(box_at, box_week) ASC
+		LIMIT 1
+		) as total_audience,
+		ROUND(IFNULL(SUM(umr.rate) / IFNULL(COUNT(umr.rate), 1), 0), 1) AS
+		rate_avg
+		FROM movie m
+		LEFT JOIN movie_plot p ON m.code = p.movie_code
+		LEFT JOIN movie_genre g ON m.code = g.movie_code
+		LEFT JOIN user_movie_rate umr ON m.code = umr.movie_code
+		WHERE m.code = #{code}
+		GROUP BY m.idx, p.idx, g.idx;
+	</select>
+
+
+	<select id="movieDetailUser" resultType="MovieDetailDTO"
+		parameterType="String">
+		SELECT m.*, p.plot, g.genre_1, g.genre_2,
+		(
+		SELECT total_audience
+		FROM movie_boxoffice
+		WHERE movie_code = #{code}
+		ORDER BY COALESCE(box_at, box_week) DESC
+		LIMIT 1
+		) as total_audience,
+		(
+		SELECT rate
+		FROM user_movie_rate umr
+		WHERE umr.movie_code = m.code AND user_id = #{user_id}
+		) as rate,
+		(
+		SELECT wish
+		FROM user_movie_wish
+		WHERE movie_code = #{code} AND user_id = #{user_id}
+		) as wish,
+		(
+		SELECT ROUND(IFNULL(SUM(rate) / IFNULL(COUNT(rate), 1), 0), 1)
+		FROM user_movie_rate
+		WHERE movie_code = #{code}
+		GROUP BY movie_code
+		) as rate_avg
+		FROM movie m
+		LEFT JOIN movie_plot p ON m.code = p.movie_code
+		LEFT JOIN movie_genre g ON m.code = g.movie_code
+		WHERE m.code = #{code}
+		GROUP BY m.idx, p.idx, g.idx;
+	</select>
+
+
+	<!-- 좋아요 여부 확인 -->
+	<select id="checkWish" resultMap="wishCount">
+		SELECT count(*) as count, wish
+		FROM user_movie_wish
+		WHERE user_id = #{user_id} AND movie_code = #{code}
+		group by idx
+	</select>
+
+	<!-- 좋아요 눌러주기 -->
+	<insert id="hitWishMovie">
+		INSERT INTO user_movie_wish (user_id, movie_code, wish)
+		VALUES (#{user_id}, #{code}, "Y")
+	</insert>
+
+
+	<!-- 게시글에 좋아요 누르기 -->
+	<update id="toggleWishMovie">
+		UPDATE user_movie_wish
+		SET wish = CASE WHEN wish = "Y" THEN "N" ELSE "Y" END
+		WHERE user_id = #{user_id}
+		AND movie_code = #{code}
+	</update>
+	
+	<select id="checkMovieRate" parameterType="RateDTO">
+		SELECT count(*)
+		FROM user_movie_rate
+		WHERE user_id = #{user_id} AND movie_code = #{movie_code}				
+	</select>
+
+
+	<insert id="insertMovieRate" parameterType="RateDTO">
+		INSERT INTO user_movie_rate (user_id, movie_code, rate)
+		VALUES (#{user_id}, #{movie_code}, #{rate})
+	</insert>
+	
+	<update id="toggleMovieRate" parameterType="RateDTO">
+		UPDATE user_movie_rate
+		SET rate = #{rate}
+		WHERE user_id = #{user_id} AND movie_code = #{movie_code}
+	</update>
+
+
+</mapper>

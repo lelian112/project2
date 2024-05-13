@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-GamjaFarmApplication<project_gamja>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.gamja_farm.GamjaFarmApplication",
+      "projectName": "project_gamja",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-GamjaFarmApplication<Back_End>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.gamja_farm.GamjaFarmApplication",
+      "projectName": "Back_End",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

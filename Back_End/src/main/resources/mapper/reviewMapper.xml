@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gamja_farm.mapper.ReviewMapper">
+
+	<resultMap id="ReviewResultMap" type="ReviewDTO">
+		<result property="idx" column="idx" />
+		<result property="user_id" column="user_id" />
+		<result property="view_cnt" column="view_cnt" />
+		<result property="movie_code" column="movie_code" />
+		<result property="total_likes_cnt" column="total_likes_cnt" />
+		<result property="review" column="review" />
+		<result property="regist_at" column="regist_at" />
+		<result property="poster" column="poster" />
+		<result property="name_kor" column="name_kor" />
+		<result property="total_comment_cnt" column="total_comment_cnt" />
+		<result property="like_btn" column = "like_btn" />
+	</resultMap>
+
+	<resultMap id="likeCountMap" type="java.util.Map">
+		<result property="count" column="count" javaType="Integer" />
+		<result property="like_btn" column="like_btn" javaType="Integer" />
+	</resultMap>
+
+	<!-- 페이지 카운트 -->
+	<select id="countpage" resultType="int">
+		SELECT count(*) From user_review
+	</select>
+
+
+	<!-- 전체 리뷰 리스트 가지고 오기 -->
+	<select id="viewList" resultMap="ReviewResultMap" parameterType="PageDTO">
+		SELECT m.poster, m.name_kor, u.movie_code, u.user_id, u.idx, u.review
+		FROM user_review u
+		JOIN movie m ON u.movie_code = m.code
+		ORDER BY u.idx DESC
+		LIMIT #{startRow}, #{blockCount}
+	</select>
+
+	<!-- 내가 작성한 리스트 숫자로 반환 -->
+	<select id="countMyReview" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM user_review
+		WHERE user_id=#{user_id}
+	</select>
+
+	<!-- 회원id로 내가 쓴것만 가지고 오기 -->
+	<select id="getMyReview" resultMap="ReviewResultMap" parameterType="PageDTO">
+		SELECT m.poster, m.name_kor,u.movie_code, u.user_id, u.idx, u.review, u.regist_at
+		FROM user_review u
+		JOIN movie m ON u.movie_code = m.code
+		WHERE user_id=#{user_id}
+		ORDER BY u.idx DESC
+		LIMIT #{pageDTO.startRow}, #{pageDTO.blockCount}
+	</select>
+
+
+	<!-- 좋아요 여부 확인 -->
+	<select id="checkLikedReview" resultMap="likeCountMap">
+		SELECT count(*) as count, like_btn
+		FROM user_review_like
+		WHERE user_id = #{user_id} AND user_review_idx = #{user_review_idx}
+		group by idx
+	</select>
+
+	<!-- 좋아요 눌러주기 -->
+	<insert id="hitLikeReview">
+		INSERT INTO user_review_like (user_id, user_review_idx, like_btn)
+		VALUES (#{user_id}, #{user_review_idx}, 1)
+	</insert>
+
+
+	<!-- 게시글에 좋아요 누르기 -->
+	<update id="toggleLikeStatus">
+		UPDATE user_review_like
+		SET like_btn = CASE WHEN like_btn = 1 THEN 0 ELSE 1 END
+		WHERE user_id = #{user_id}
+		AND user_review_idx = #{user_review_idx}
+	</update>
+
+
+	<!-- 좋아요 수 카운트하기 -->
+	<select id="getReviewWithLikeCnt" parameterType="int">
+		SELECT
+		(
+		SELECT count(like_btn)
+		FROM user_review_like AS l
+		WHERE l.user_review_idx = r.idx AND like_btn = 1
+		) AS total_like_cnt
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		WHERE r.idx = #{idx}
+	</select>
+
+	<!-- 좋아요 눌린 모든 리뷰 // 페이징 처리용 -->
+	<select id="countReviewWithMostLike" resultType="int">
+		SELECT count(*) FROM user_review_like
+	</select>
+
+	<!-- 리뷰 좋아요 순 정렬 -->
+	<select id="getReviewWithMostLike" resultMap="ReviewResultMap"
+		parameterType="PageDTO">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+		SELECT count(like_btn)
+		FROM user_review_like AS l
+		WHERE l.user_review_idx = r.idx AND like_btn = 1
+		) AS total_likes_cnt,
+		(
+		SELECT count(idx)
+		FROM user_comment uc
+		WHERE uc.user_review_idx = r.idx 
+		) AS total_comment_cnt
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code	
+		ORDER BY total_likes_cnt DESC
+		LIMIT #{startRow}, #{blockCount}
+	</select>
+	
+	
+		<!-- 리뷰 좋아요 순 유저 id 있을 시 정렬 -->
+	<select id="getReviewWithMostLikeUser" resultMap="ReviewResultMap"
+		parameterType="PageDTO">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+			SELECT count(like_btn)
+			FROM user_review_like AS l
+			WHERE l.user_review_idx = r.idx AND like_btn = 1
+		) AS total_likes_cnt,
+		(
+			SELECT count(idx)
+			FROM user_comment uc
+			WHERE uc.user_review_idx = r.idx
+		) AS total_comment_cnt,
+		(
+			SELECT COALESCE(
+				(
+				     SELECT like_btn
+				     FROM user_review_like url
+				     WHERE url.user_review_idx = r.idx AND user_id = #{user_id}
+				),
+			 0)
+		) AS like_btn				
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		ORDER BY total_likes_cnt DESC
+		LIMIT #{pageDTO.startRow}, #{pageDTO.blockCount}
+	</select>
+
+
+	<!-- 좋아요 눌린 모든 리뷰 // 페이징 처리용 -->
+	<select id="countReviewWithNew" resultType="int">
+		SELECT count(*) FROM user_review_like
+	</select>
+
+
+	<!-- 리뷰 최신 순 정렬-->
+	<select id="getReviewWithNew" resultMap="ReviewResultMap"
+		parameterType="PageDTO">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+		SELECT count(like_btn)
+		FROM user_review_like AS l
+		WHERE l.user_review_idx = r.idx AND like_btn = 1) AS total_likes_cnt,
+		(
+		SELECT count(idx)
+		FROM user_comment uc
+		WHERE uc.user_review_idx = r.idx ) AS total_comment_cnt
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		ORDER BY r.regist_at DESC
+		LIMIT #{startRow}, #{blockCount}
+	</select>
+	
+	<select id="getReviewWithNewUser" resultMap="ReviewResultMap"
+		parameterType="PageDTO">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+			SELECT count(like_btn)
+			FROM user_review_like AS l
+			WHERE l.user_review_idx = r.idx AND like_btn = 1
+		) AS total_likes_cnt,
+		(
+			SELECT count(idx)
+			FROM user_comment uc
+			WHERE uc.user_review_idx = r.idx
+		) AS total_comment_cnt,
+		(
+			SELECT COALESCE(
+				(
+				     SELECT like_btn
+				     FROM user_review_like url
+				     WHERE url.user_review_idx = r.idx AND user_id = #{user_id}
+				),
+			 0)
+		) AS like_btn				
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		ORDER BY r.regist_at DESC
+		LIMIT #{pageDTO.startRow}, #{pageDTO.blockCount}
+	</select>
+
+
+
+	<!--글 작성하기 -->
+	<insert id="saveReview" parameterType="ReviewDTO">
+		INSERT INTO user_review (user_id, movie_code, review, view_cnt)
+		VALUES(#{user_id}, #{movie_code}, #{review}, #{view_cnt})
+	</insert>
+
+	<!-- 조회수 올리기 -->
+	<update id="addViewCount" parameterType="int">
+		UPDATE user_review
+		SET view_cnt = view_cnt +1
+		WHERE idx = #{idx}
+	</update>
+
+	<!-- 리뷰내용 확인 -->
+	<select id="showContent" resultType="ReviewDTO">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+		SELECT count(like_btn)
+		FROM user_review_like AS url
+		WHERE url.user_review_idx = r.idx AND like_btn = 1
+		) AS total_likes_cnt,
+		(
+		SELECT count(idx)
+		FROM user_comment uc
+		WHERE uc.user_review_idx = r.idx
+		) AS total_comment_cnt,
+		(
+		SELECT COALESCE(
+			(
+			     SELECT like_btn
+			     FROM user_review_like url
+			     WHERE url.user_review_idx = r.idx AND user_id = #{user_id}
+			),
+		 0)
+		) AS like_btn
+		
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		WHERE r.idx = #{idx}
+	</select>
+
+	<!-- 게시글 수정 -->
+	<update id="updateReview" parameterType="ReviewDTO">
+		UPDATE user_review
+		SET review=#{review}
+		WHERE idx=#{idx}
+	</update>
+
+	<!-- 리뷰 전체 삭제 -->
+	<delete id="deleteAllReview">
+		DELETE FROM user_review
+		WHERE user_id=#{user_id}
+	</delete>
+
+
+	<!-- 리뷰 삭제-->
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM user_review
+		WHERE idx=#{idx}
+	</delete>
+
+	<select id="movieReview" resultMap="ReviewResultMap">
+		SELECT r.*, m.poster, m.name_kor,
+		(
+		SELECT count(like_btn)
+		FROM user_review_like AS url
+		WHERE url.user_review_idx = r.idx AND like_btn = 1
+		) AS total_likes_cnt,
+		(
+		SELECT count(idx)
+		FROM user_comment uc
+		WHERE uc.user_review_idx = r.idx
+		) AS total_comment_cnt,
+		(
+		SELECT COALESCE(
+			(
+		     SELECT like_btn
+		     FROM user_review_like url
+		     WHERE url.user_review_idx = r.idx AND user_id = #{user_id}
+			),
+		 0)
+		) AS like_btn
+		FROM user_review AS r
+		JOIN movie m ON m.code = r.movie_code
+		WHERE r.movie_code = #{code}
+	</select>
+
+</mapper>

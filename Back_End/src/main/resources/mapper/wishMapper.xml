@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamja_farm.mapper.WishMapper">
+
+	<resultMap id="WishResultMap" type="WishDTO">
+		<result property="regist_at" column = "regist_at" jdbcType="DATE" javaType="java.util.Date" />				
+    <result property="poster" column="poster"/>
+		<result property="name_kor" column="name_kor"/>				
+	</resultMap>
+
+	<!-- 모든 리스트 가지고 오기 -->
+	<select id="allWishList" resultMap="WishResultMap" parameterType="PageDTO">
+	  SELECT m.poster, m.name_kor, umw.movie_code, umw.user_id, umw.idx, umw.wish
+	  FROM user_movie_wish umw
+	  JOIN movie m ON umw.movie_code = m.code
+	  ORDER BY umw.idx DESC
+	  LIMIT #{startRow}, #{blockCount}
+	</select>
+	
+	<!-- 페이지 카운트 -->
+	<select id="countall" resultType="int">
+	  SELECT count(*) FROM user_movie_wish
+	</select>
+	
+	
+	
+	<!-- 찜 목록에 추가 -->
+	<insert id="hitWish" parameterType="WishDTO">
+	  INSERT INTO user_movie_wish (user_id,movie_code,wish)
+	  VALUES(#{user_id}, #{movie_code}, "Y")
+	</insert>
+
+	<!-- 내가 찜한 리스트 숫자로 반환 -->
+	<select id="countMyWish" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM user_movie_wish
+		WHERE user_id=#{user_id}
+	</select>
+
+	
+	<!-- ID로 찜 목록에 있는거 찾기--> 
+	<select id="getWishListById" resultMap="WishResultMap" parameterType="PageDTO">
+	  SELECT m.poster, m.name_kor, umw.movie_code, umw.user_id, umw.idx, umw.wish, umw.regist_at
+	  FROM user_movie_wish umw
+	  JOIN movie m ON umw.movie_code = m.code
+	  WHERE user_id = #{user_id}
+	  ORDER BY umw.idx DESC
+	  LIMIT #{pageDTO.startRow}, #{pageDTO.blockCount}
+	</select>
+	
+	
+	<!-- 찜 목록 중 한개 삭제 -->
+	<delete id="deletOneWish" parameterType="WishDTO">
+	  DELETE FROM user_movie_wish
+	  WHERE user_id=#{user_id} and idx=#{idx}
+	</delete>
+	
+	
+	
+	<!-- 찜 목록 전체 삭제 -->
+	<delete id="deleteAllbyUserId" parameterType="String">
+	  DELETE FROM user_movie_wish
+	  WHERE user_id=#{user_id}
+	</delete>
+	
+	<!-- 이미 찜 한 영화인지 조회 -->
+	<select id="getByMovieCodeWithUserId" parameterType="WishDTO" resultType="WishDTO">
+	  SELECT * FROM user_movie_wish
+	  WHERE user_id=#{user_id} and movie_code=#{movie_code}
+	</select>
+	
+	<!-- 별점 가져오기-->
+	<select id = "getRate" parameterType="String" resultType="RateDTO">
+	  SELECT umr.movie_code, umr.rate, m.poster
+	  FROM user_movie_rate umr
+	  JOIN (
+	    SELECT code, poster 
+	      FROM movie    
+	      ) m ON m.code = umr.movie_code
+	  WHERE user_id = #{user_id}
+	</select>
+	
+	
+
+</mapper>

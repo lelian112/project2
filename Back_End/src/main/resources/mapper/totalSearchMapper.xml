@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.gamja_farm.mapper.totalSearchMapper">
+  <resultMap id="searchResultMap" type="TotalSearchDTO">
+    <result property="code" column="code" />
+    <result property="poster" column="poster" />
+    <result property="name_kor" column="name_kor" />
+    <result property="release_at" column="release_at" />
+    <result property="poster" column="poster" />
+    <result property="actor_1" column="actor_1" />
+    <result property="actor_2" column="actor_2" />
+    <result property="actor_3" column="actor_3" />
+    <result property="actor_4" column="actor_4" />
+    <result property="actor_5" column="actor_5" />
+    <result property="rate_avg" column="rate_avg" />
+	</resultMap>
+
+
+  <select id="titleSearch" parameterType="String" resultMap="searchResultMap">
+    SELECT * FROM movie
+    WHERE name_kor LIKE CONCAT('%', #{name_kor}, '%')
+    ORDER BY release_at DESC
+    LIMIT 5
+  </select> 
+
+</mapper>

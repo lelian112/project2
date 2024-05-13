@@ -1,0 +1,19 @@
+#cloudContainer{
+	background-color: wheat;
+	width: 480px;
+	height: 460px;
+	left: 39%;
+	top: -40.5%;
+	position: relative;
+	border-radius: 25px;
+}
+
+#cloudContainer img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  	width: 460px;
+	height: 440px;
+	border-radius: 25px;
+}

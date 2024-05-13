@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gamja_farm.mapper.CommentMapper">
+
+	<resultMap id="CommentResultMap" type="CommentDTO">
+    <result property="idx" column="comment_idx"/>
+    <result property="user_id" column="user_id"/>
+    <result property="user_review_idx" column="user_review_idx"/>
+    <result property="comment" column="comment"/>
+    <result property="regist_at" column="regist_at"/>
+    
+      <result property="review" column="review"/>
+      <result property="movie_code" column="movie_code"/>
+      <result property="view_Cnt" column="view_Cnt"/>
+      <result property="name_kor" column="name_kor"/>
+      <result property="poster" column="poster"/>
+	</resultMap>
+
+	<!-- 모든 코멘트 카운트 -->
+	<select id="countComment" resultType="int">
+	  SELECT count(*) FROM user_comment 
+	</select>
+	
+	<!-- 전체 코멘트 리스트 반환 with paging-->
+	<select id="getAllComment" resultMap="CommentResultMap" parameterType="PageDTO">
+	  SELECT 
+	   ur.movie_code, ur.idx AS user_review_idx, ur.review, uc.idx AS comment_idx, uc.comment, uc.user_id, uc.regist_at,
+	   m.name_kor, m.poster
+	  FROM user_comment uc
+	  JOIN user_review ur ON ur.idx = uc.user_review_idx
+	  JOIN movie m ON ur.movie_code = m.code
+	  ORDER BY uc.regist_at DESC
+	  LIMIT #{startRow}, #{blockCount}
+	</select>
+	
+	<!-- 코멘트 카운트 페이지 처리용-->
+	<select id="countEachCommentByIndex" parameterType="int" resultType="int">
+	  SELECT count(*) FROM user_comment
+	  WHERE user_review_idx = #{user_review_idx}
+	</select>
+	
+	<!-- 특정 게시글 번호 찾아서 리뷰와 코멘트 가지고 오기 -->
+	<select id="getTheComment" resultMap="CommentResultMap" parameterType="PageDTO">
+	SELECT 
+	   ur.movie_code, ur.idx AS user_review_idx, ur.review, uc.idx AS comment_idx, uc.comment, uc.user_id, uc.regist_at,
+	   m.name_kor, m.poster
+	FROM user_comment uc
+	JOIN user_review ur ON ur.idx = uc.user_review_idx
+	JOIN movie m ON ur.movie_code = m.code
+	WHERE uc.user_review_idx = #{user_review_idx}
+	ORDER BY uc.regist_at DESC
+	</select>
+	
+	<!-- 특정 유저가 남긴 모든 코멘트 페이지 처리-->
+	<select id="countEachCommentById" resultType="int">
+	  SELECT count(*) FROM user_comment
+	  WHERE user_id = #{user_id}
+	</select>
+	
+	<!-- 특정 유저가 남긴 모든 코멘트 모아보기 -->
+	<select id="getMyAllCommentById" resultMap="CommentResultMap" parameterType="PageDTO">
+	SELECT 
+	   ur.movie_code, ur.idx AS user_review_idx, ur.review, uc.idx AS comment_idx, uc.comment, uc.user_id, uc.regist_at,
+	   m.name_kor, m.poster
+	FROM user_comment uc
+	JOIN user_review ur ON ur.idx = uc.user_review_idx
+	JOIN movie m ON ur.movie_code = m.code
+	WHERE uc.user_id = #{user_id}
+	ORDER BY uc.regist_at DESC
+	LIMIT #{pageDTO.startRow},#{pageDTO.blockCount}
+	</select>
+	
+	<!-- 코멘트 작성 -->
+	<insert id="saveComment" parameterType="CommentDTO">
+	  INSERT INTO user_comment (user_id, user_review_idx, comment)  
+	  VALUES(#{user_id}, #{user_review_idx}, #{comment}) 
+	</insert>
+	
+	
+	<!-- 코멘트 수정 -->
+	<update id="updateComment" parameterType="CommentDTO">
+	  UPDATE user_comment 
+	  SET comment =#{comment}  
+	  WHERE user_id =#{user_id} and idx=#{idx}
+	</update>
+	
+	
+	<!-- 코멘트 하나만 삭제 -->
+	<delete id="deleteOneComment" parameterType="CommentDTO">
+	  DELETE FROM user_comment
+	  WHERE user_id=#{user_id} AND idx=#{idx}
+	</delete>
+	
+	<!-- 코멘트 전체 삭제 -->
+	<delete id="deleteAllComment" parameterType="String">
+	  DELETE FROM user_comment
+	  WHERE user_id=#{user_id}
+	</delete>
+	
+	<!-- 코맨트 조회 -->
+	<select id="detailComment" parameterType="int" resultType="CommentDTO">
+		SELECT *
+		FROM user_comment
+		WHERE idx = #{idx}
+	</select>
+
+</mapper>
